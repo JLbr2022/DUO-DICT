@@ -4,7 +4,7 @@ const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
 const app = express();
 const port = process.env.PORT || 3000;
-// const db = new Sequelize("sqlite:db_personaldict");
+
 const db = new Sequelize({
   dialect: "sqlite",
   storage: "db_personaldict.db",
