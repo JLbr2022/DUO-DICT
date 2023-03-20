@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
 const app = express();
@@ -10,9 +9,11 @@ const db = new Sequelize({
   storage: "db_personaldict.db",
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// Middlewares
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
+// Test connection
 db.authenticate()
   .then(() => {
     console.log("Conectado a la base de datos SQLite.");
@@ -26,7 +27,7 @@ app.listen(port, () => {
 });
 
 // Model
-const Word = db.define("tb_words", {
+const TbWord = db.define("tb_words", {
   user: Sequelize.STRING,
   language: Sequelize.STRING,
   word: Sequelize.STRING,
@@ -36,8 +37,9 @@ const Word = db.define("tb_words", {
 db.sync();
 
 // ROUTES
+// GET ALL
 app.get("/words", (req, res) => {
-  Word.findAll()
+  TbWord.findAll()
     .then((words) => {
       res.json(words);
     })
@@ -46,9 +48,10 @@ app.get("/words", (req, res) => {
     });
 });
 
+// GET BY ID
 app.get("/words/:id", (req, res) => {
-  const idWord = req.params.id;
-  Word.findByPk(idWord)
+  const idTbWord = req.params.id;
+  TbWord.findByPk(idTbWord)
     .then((words) => {
       res.json(words);
     })
@@ -57,11 +60,23 @@ app.get("/words/:id", (req, res) => {
     });
 });
 
-// BUSQUEDA SELECTIVA POR TIPO DE CAMPO
+// GET BY USER
+app.get("/words/user", (req, res) => {
+  const idTbWord = req.params.id;
+  TbWord.findByPk(idTbWord)
+    .then((words) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.status(500).send("Error -> " + err);
+    });
+});
+
+// GET BY SELECTIVE FIELD AND VALUE
 app.get("/words/:field/:value", (req, res) => {
   const field = req.params.field;
   const value = req.params.value;
-  Word.findAll({
+  TbWord.findAll({
     where: Sequelize.where(Sequelize.fn("LOWER", Sequelize.col(field)), {
       [Op.like]: "%" + value.toLowerCase() + "%",
     }),
