@@ -1,0 +1,15 @@
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import App from "../../App";
+import { DisplayAllWords } from "../DisplayAllWords/DisplayAllWords";
+
+export const SysRoutes = () => {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route exact path="/DisplayAllWords" component={DisplayAllWords} />
+      </Switch>
+    </Router>
+  );
+};
