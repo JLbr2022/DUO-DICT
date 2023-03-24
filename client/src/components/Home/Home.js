@@ -6,9 +6,8 @@ import NavBar from "../NavBar/NavBar";
 function Home() {
   return (
     <Container>
-      <Header />
+      {/* <Header /> */}
       <NavBar />
-      <Footer />
     </Container>
   );
 }

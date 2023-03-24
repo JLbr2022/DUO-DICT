@@ -1,19 +1,13 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import { DisplayAllWords } from "./components/DisplayAllWords/DisplayAllWords";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Home from "./components/Home/Home";
-// import Header from "./components/Header/Header";
-// import { DisplayAllWords } from "./components/DisplayAllWords/DisplayAllWords";
-// import SysRoutes from "./components/SysRoutes/Routes";
-import Home from "./components/Home/Home";
+import NavBar from "./components/NavBar/NavBar";
+import { Container } from "react-bootstrap";
 
 function App() {
   return (
-    <div>
-      {/* <SysRoutes /> */}
-      <Home />
-    </div>
+    <Container fluid>
+      <NavBar />
+    </Container>
   );
 }
 

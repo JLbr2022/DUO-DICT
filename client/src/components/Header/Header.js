@@ -3,7 +3,7 @@
 function Header() {
   return (
     // <div className="Container">
-    <h1>Duo Dict</h1>
+    <h1>Home</h1>
     // </div>
   );
 }

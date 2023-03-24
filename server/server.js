@@ -4,6 +4,17 @@ const { Op } = require("sequelize");
 const app = express();
 const port = process.env.PORT || 4000;
 
+// CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+// Database connection
 const db = new Sequelize({
   dialect: "sqlite",
   storage: "db_personaldict.db",
@@ -83,6 +94,45 @@ app.get("/words/:field/:value", (req, res) => {
   })
     .then((words) => {
       res.json(words);
+    })
+    .catch((err) => {
+      res.status(500).send("Error -> " + err);
+    });
+});
+
+// ADD WORD
+app.post("/words", (req, res) => {
+  TbWord.create(req.body)
+    .then((word) => {
+      res.json(word);
+    })
+    .catch((err) => {
+      res.status(500).send("Error -> " + err);
+    });
+});
+
+// DELETE WORD
+app.delete("/words/:id", (req, res) => {
+  const id = req.params.id;
+  TbWord.destroy({
+    where: { id: id },
+  })
+    .then(() => {
+      res.status(200).send("Word has been deleted!");
+    })
+    .catch((err) => {
+      res.status(500).send("Error -> " + err);
+    });
+});
+
+// UPDATE WORD
+app.put("/words/:id", (req, res) => {
+  const id = req.params.id;
+  TbWord.update(req.body, {
+    where: { id: id },
+  })
+    .then(() => {
+      res.status(200).send("Word has been updated!");
     })
     .catch((err) => {
       res.status(500).send("Error -> " + err);
