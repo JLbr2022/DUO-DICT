@@ -1,14 +1,20 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { BrowserRouter } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { useState } from "react";
 
 import DisplayAllWords from "../DisplayAllWords/DisplayAllWords";
+import AddWord from "../Crud/AddWord/AddWord";
 import Sentences from "../Sentences/Sentences";
-// import Home from "../Home/Home";
 
-function NavBar(props) {
+function NavBar() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <BrowserRouter>
       <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
@@ -20,9 +26,14 @@ function NavBar(props) {
               <Nav.Link href="/DisplayAllWords">Word list</Nav.Link>
               <Nav.Link href="/Sentences">Sentences list</Nav.Link>
             </Nav>
+            <Button variant="primary" onClick={handleShow}>
+              Add Record
+            </Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <AddWord show={show} handleClose={handleClose} />
+
       <Routes>
         <Route path="/DisplayAllWords" element={<DisplayAllWords />} />
         <Route path="/Sentences" element={<Sentences />} />
