@@ -23,7 +23,7 @@ export default function NavBar() {
               <Nav.Link href="/Sentences">Sentences list</Nav.Link>
             </Nav>
             <Button variant="primary" onClick={handleShow}>
-              Add Record
+              Add Word
             </Button>
           </Navbar.Collapse>
         </Container>
