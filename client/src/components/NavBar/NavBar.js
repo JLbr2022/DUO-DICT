@@ -11,9 +11,16 @@ import Sentences from "../Sentences/Sentences";
 
 function NavBar() {
   const [show, setShow] = useState(false);
+  const [words, setWords] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const fetchWord = async () => {
+    const response = await fetch("http://localhost:4000/words");
+    const data = await response.json();
+    setWords(data);
+  };
 
   return (
     <BrowserRouter>
@@ -32,10 +39,13 @@ function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <AddWord show={show} handleClose={handleClose} />
+      <AddWord show={show} handleClose={handleClose} fetchWord={fetchWord} />
 
       <Routes>
-        <Route path="/DisplayAllWords" element={<DisplayAllWords />} />
+        <Route
+          path="/DisplayAllWords"
+          element={<DisplayAllWords fetchWord={fetchWord} />}
+        />
         <Route path="/Sentences" element={<Sentences />} />
       </Routes>
     </BrowserRouter>

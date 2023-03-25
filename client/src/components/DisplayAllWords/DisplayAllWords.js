@@ -23,8 +23,6 @@ function DisplayAllWords({ onAddWord }) {
     fetchWords();
   };
 
-  // display the data
-
   return (
     <>
       <AddWord onAddWord={handleAddWord} />

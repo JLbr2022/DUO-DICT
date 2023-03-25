@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-function AddWord({ show, handleClose }) {
+function AddWord({ show, handleClose, fetchWord }) {
   const [showModal, setShowModal] = useState(false);
   const [newWord, setNewWord] = useState({
     word: "",
@@ -24,11 +24,12 @@ function AddWord({ show, handleClose }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newWord),
-      });
+      }).then(fetchWord()); // call the fetch function to get the updated data
 
       if (response.ok) {
         setShowModal(false);
         setNewWord({ word: "", translation: "", comment: "" });
+        fetchWord(); // call the fetch function to get the updated data
       } else {
         throw new Error("Something went wrong while creating the new word");
       }
