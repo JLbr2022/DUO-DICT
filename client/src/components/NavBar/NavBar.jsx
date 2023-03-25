@@ -7,6 +7,7 @@ export default function NavBar() {
   const location = useLocation();
 
   console.log({location})
+  
   const handleShow = () => {
     navigate("/words/add");
   };
