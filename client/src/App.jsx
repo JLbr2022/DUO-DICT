@@ -15,8 +15,7 @@ export default function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/words">
-          <Route index element={<DisplayAllWords />} />
+          <Route path="/words" element={<DisplayAllWords />} >
           <Route path="add" element={<ModalCrud />}></Route>
         </Route>
         <Route path="/Sentences" element={<Sentences />} />

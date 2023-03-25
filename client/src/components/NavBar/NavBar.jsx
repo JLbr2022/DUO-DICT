@@ -1,9 +1,12 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function NavBar() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  console.log({location})
   const handleShow = () => {
     navigate("/words/add");
   };

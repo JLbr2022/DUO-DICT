@@ -1,10 +1,11 @@
 import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 export default function DisplayAllWords() {
+  const location = useLocation();
   const [words, setWords] = useState([]);
 
   // create a fetch function
@@ -17,7 +18,7 @@ export default function DisplayAllWords() {
   // call the fetch function
   useEffect(() => {
     fetchWords();
-  }, []);
+  }, [location]);
 
   return (
     <>
