@@ -1,38 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-function AddWord({ show, handleClose, fetchWord }) {
-  const [showModal, setShowModal] = useState(false);
-  const [newWord, setNewWord] = useState({
-    word: "",
-    translation: "",
-    comment: "",
-  });
+const initialState = { word: "", translation: "", comment: "" };
+
+export default function ModalCrud() {
+  const navigate = useNavigate();
+  const [show, setShow] = useState(true);
+  const [newWord, setNewWord] = useState({ ...initialState });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewWord({ ...newWord, [name]: value });
   };
 
+  const close = () => {
+    setShow(false);
+    setTimeout(() => {
+      navigate("/words");
+    }, 200);
+  };
+
+  const handleClose = () => close();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:4000/words", {
+      await fetch(`${serverUrl}words`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newWord),
-      }).then(fetchWord()); // call the fetch function to get the updated data
-
-      if (response.ok) {
-        setShowModal(false);
-        setNewWord({ word: "", translation: "", comment: "" });
-        fetchWord(); // call the fetch function to get the updated data
-      } else {
-        throw new Error("Something went wrong while creating the new word");
-      }
+      });
+      close();
     } catch (error) {
       console.log(error);
     }
@@ -88,5 +91,3 @@ function AddWord({ show, handleClose, fetchWord }) {
     </Modal>
   );
 }
-
-export default AddWord;

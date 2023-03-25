@@ -1,13 +1,15 @@
 import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import AddWord from "../Crud/AddWord/AddWord";
+import { Outlet } from "react-router-dom";
 
-function DisplayAllWords({ onAddWord }) {
+const serverUrl = process.env.REACT_APP_SERVER_URL;
+
+export default function DisplayAllWords() {
   const [words, setWords] = useState([]);
 
   // create a fetch function
   const fetchWords = async () => {
-    const response = await fetch("http://localhost:4000/words");
+    const response = await fetch(`${serverUrl}words`);
     const data = await response.json();
     setWords(data);
   };
@@ -17,15 +19,8 @@ function DisplayAllWords({ onAddWord }) {
     fetchWords();
   }, []);
 
-  // add a new word to the table
-  const handleAddWord = () => {
-    // call the fetchWords function to get the updated data
-    fetchWords();
-  };
-
   return (
     <>
-      <AddWord onAddWord={handleAddWord} />
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -46,8 +41,7 @@ function DisplayAllWords({ onAddWord }) {
           ))}
         </tbody>
       </Table>
+      <Outlet />
     </>
   );
 }
-
-export default DisplayAllWords;
