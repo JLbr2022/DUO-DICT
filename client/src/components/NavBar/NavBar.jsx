@@ -1,15 +1,19 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+
+import DisplayAllWords from "../DisplayAllWords/DisplayAllWords";
 
 export default function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
+  let path = "";
+  const [wordListUrl, setWordListUrl] = useState('');
 
-  console.log("LocationNAVBAR "+{location});
-  
   const handleShowWord = () => {
     navigate("/words/w/word/asc/add");
+
   };
   
   const handleShowSentences = () => {

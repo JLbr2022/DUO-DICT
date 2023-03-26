@@ -2,15 +2,19 @@ import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-const serverUrl = process.env.REACT_APP_SERVER_URL;
+// const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 export default function Sentences() {
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+  const path = "words/s/word/asc";
+  const url = `${serverUrl}${path}`;
   const location = useLocation();
   const [sentences, setSentences] = useState([]);
 
   // create a fetch function
-  const fetchWords = async () => {
-    const response = await fetch(`${serverUrl}words`);
+  const fetchWords = async (serverUrl) => {
+    // const response = await fetch(`${serverUrl}words`);
+    const response = await fetch(`${url}`);
     const data = await response.json();
     setSentences(data);
   };
@@ -18,7 +22,7 @@ export default function Sentences() {
   // call the fetch function
   useEffect(() => {
     fetchWords();
-  }, [location]);
+  }, [location, url]);
 
 
   return (

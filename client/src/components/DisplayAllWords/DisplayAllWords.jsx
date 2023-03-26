@@ -2,15 +2,19 @@ import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-const serverUrl = process.env.REACT_APP_SERVER_URL;
 
 export default function DisplayAllWords() {
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+  const path = "words/w/word/asc";
+  const url = `${serverUrl}${path}`;
   const location = useLocation();
   const [words, setWords] = useState([]);
 
   // create a fetch function
-  const fetchWords = async () => {
-    const response = await fetch(`${serverUrl}words`);
+  const fetchWords = async (serverUrl) => {
+    // const path = "words/w/word/asc"
+    // const response = await fetch(`${serverUrl}words`);
+    const response = await fetch(`${url}`);
     const data = await response.json();
     setWords(data);
   };
@@ -18,9 +22,8 @@ export default function DisplayAllWords() {
   // call the fetch function
   useEffect(() => {
     fetchWords();
-  }, [location]);
-  console.log({location})
-
+  }, [location,url]);
+  
   return (
     <>
       <Table striped bordered hover variant="dark">
