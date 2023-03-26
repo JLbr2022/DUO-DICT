@@ -40,6 +40,7 @@ app.listen(port, () => {
 // Model
 const TbWord = db.define("tb_words", {
   user: Sequelize.STRING,
+  type: Sequelize.STRING,
   language: Sequelize.STRING,
   word: Sequelize.STRING,
   translate: Sequelize.STRING,
@@ -91,6 +92,22 @@ app.get("/words/:field/:value", (req, res) => {
     where: Sequelize.where(Sequelize.fn("LOWER", Sequelize.col(field)), {
       [Op.like]: "%" + value.toLowerCase() + "%",
     }),
+  })
+    .then((words) => {
+      res.json(words);
+    })
+    .catch((err) => {
+      res.status(500).send("Error -> " + err);
+    });
+});
+
+// GET BY ITEM TYPE S = sentence, W = word
+app.get("/words/type/:type", (req, res) => {
+  const type = req.params.type;
+  TbWord.findAll({
+    where: {
+      type: type,
+    },
   })
     .then((words) => {
       res.json(words);
