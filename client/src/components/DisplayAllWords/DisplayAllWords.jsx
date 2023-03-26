@@ -21,15 +21,6 @@ export default function DisplayAllWords() {
   }, [location]);
   console.log({location})
 
-  // Fucntion to hide or show button Add Word depending on the path. If the path is /words, the button is shown otherwise it is hidden
-  const showButton = () => {
-  const isWordsPath = location.pathname === '/words/type/w';
-  console.log("isWordsPath is: "+isWordsPath)
-
-  if (location.pathname === "/words/type/w") {
-      
-  }}
-
   return (
     <>
       <Table striped bordered hover variant="dark">
