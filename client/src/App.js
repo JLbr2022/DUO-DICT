@@ -1,4 +1,3 @@
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
@@ -17,8 +16,8 @@ export default function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-          {/* <Route path="/words" element={<DisplayAllWords />} > */}
-          <Route path="/words/w/word/asc" element={<DisplayAllWords />} >
+        {/* <Route path="/words" element={<DisplayAllWords />} > */}
+        <Route path="/words/w/word/asc" element={<DisplayAllWords />}>
           <Route path="add" element={<ModalCrud />}></Route>
         </Route>
         <Route path="/words/s/word/asc" element={<Sentences />} />

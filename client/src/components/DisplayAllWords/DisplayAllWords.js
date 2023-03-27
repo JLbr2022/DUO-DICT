@@ -21,7 +21,7 @@ export default function DisplayAllWords() {
 
   // call the fetch function
   useEffect(() => {
-    fetchWords();
+  fetchWords();
   }, [location,url]);
   
   return (

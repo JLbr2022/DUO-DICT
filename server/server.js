@@ -103,35 +103,6 @@ app.get("/words/:type/:field/:order", (req, res) => {
     });
 });
 
-// app.get("/words/asc/:field", (req, res) => {
-//   const field = req.params.field;
-//   TbWord.findAll({
-//     order: [[field, "ASC"]],
-//   })
-//     .then((words) => {
-//       res.json(words);
-//     })
-//     .catch((err) => {
-//       res.status(500).send("Error -> " + err);
-//     });
-// });
-
-// app.get("/words/:field/:value", (req, res) => {
-//   const field = req.params.field;
-//   const value = req.params.value;
-//   TbWord.findAll({
-//     where: Sequelize.where(Sequelize.fn("LOWER", Sequelize.col(field)), {
-//       [Op.like]: "%" + value.toLowerCase() + "%",
-//     }),
-//   })
-//     .then((words) => {
-//       res.json(words);
-//     })
-//     .catch((err) => {
-//       res.status(500).send("Error -> " + err);
-//     });
-// });
-
 // GET BY ITEM TYPE S = sentence, W = word in UPPERCASE
 app.get("/words/type/:type", (req, res) => {
   const type = req.params.type.toUpperCase();
