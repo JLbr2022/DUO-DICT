@@ -13,10 +13,6 @@ export default function ModalCrud() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewWord({ ...newWord, [name]: value });
-
-    console.log("LANG: " + `${e.target.value}`);
-    console.log("LANG: " + `${newWord.user}`);
-    // console.log("LANG: " + `${newWord.translate}`);
   };
 
   const close = () => {
