@@ -5,15 +5,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 export default function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
+  let path = "";
+  const [wordListUrl, setWordListUrl] = useState("");
 
-  console.log({location})
-  
-  const handleShow = () => {
-    navigate("/words/add");
+  const handleShowWord = () => {
+    navigate("/words/w/word/asc/add");
   };
-  
+
   const handleShowSentences = () => {
-    navigate("/Sentences/add");
+    navigate("/words/s/word/asc/add");
   };
 
   return (
@@ -27,13 +27,18 @@ export default function NavBar() {
               <Nav.Link href="/words">Word list</Nav.Link>
               <Nav.Link href="/sentences">Sentences list</Nav.Link>
             </Nav>
-            {(location.pathname === "/words" || location.pathname === "/add") && (
+            {(location.pathname === "/words" ||
+              location.pathname === "/add") && (
               <Button variant="primary" href="/words/add" onClick={handleShow}>
                 Add Word
               </Button>
             )}
             {location.pathname === "/sentences" && (
-              <Button variant="primary" href="/sentence" onClick={handleShowSentences}>
+              <Button
+                variant="primary"
+                href="/sentence"
+                onClick={handleShowSentences}
+              >
                 Add Sentence
               </Button>
             )}

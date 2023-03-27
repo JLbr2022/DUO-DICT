@@ -18,7 +18,7 @@ export default function ModalCrud() {
   const close = () => {
     setShow(false);
     setTimeout(() => {
-      navigate("/words");
+      navigate("/words/w/word/asc");
     }, 200);
   };
 

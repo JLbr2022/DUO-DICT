@@ -10,15 +10,18 @@ import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 
 export default function App() {
+  // const wordPath = "/words/w/word/asc";
+
   return (
     <Container fluid>
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-          <Route path="/words" element={<DisplayAllWords />} >
+          {/* <Route path="/words" element={<DisplayAllWords />} > */}
+          <Route path="/words/w/word/asc" element={<DisplayAllWords />} >
           <Route path="add" element={<ModalCrud />}></Route>
         </Route>
-        <Route path="/Sentences" element={<Sentences />} />
+        <Route path="/words/s/word/asc" element={<Sentences />} />
       </Routes>
     </Container>
   );

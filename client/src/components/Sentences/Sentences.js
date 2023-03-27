@@ -2,23 +2,28 @@ import { Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-const serverUrl = process.env.REACT_APP_SERVER_URL;
+// const serverUrl = process.env.REACT_APP_SERVER_URL;
 
-export default function DisplayAllWords() {
+export default function Sentences() {
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+  const path = "words/s/word/asc";
+  const url = `${serverUrl}${path}`;
   const location = useLocation();
-  const [words, setWords] = useState([]);
+  const [sentences, setSentences] = useState([]);
 
   // create a fetch function
-  const fetchWords = async () => {
-    const response = await fetch(`${serverUrl}words`);
+  const fetchWords = async (serverUrl) => {
+    // const response = await fetch(`${serverUrl}words`);
+    const response = await fetch(`${url}`);
     const data = await response.json();
-    setWords(data);
+    setSentences(data);
   };
 
   // call the fetch function
   useEffect(() => {
     fetchWords();
-  }, [location]);
+  }, [location, url]);
+
 
   return (
     <>
@@ -32,7 +37,7 @@ export default function DisplayAllWords() {
           </tr>
         </thead>
         <tbody>
-          {words?.map((item) => (
+          {sentences?.map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.word}</td>
