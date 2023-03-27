@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-const serverUrl = process.env.REACT_APP_SERVER_URL;
-
-const initialState = { word: "", translation: "", comment: "" };
 
 export default function ModalCrud() {
+  const initialState = { word: "", translation: "", comment: "" };
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+  const wordPath = "/words/w/word/asc";
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
   const [newWord, setNewWord] = useState({ ...initialState });
@@ -13,12 +13,16 @@ export default function ModalCrud() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewWord({ ...newWord, [name]: value });
+
+    console.log("LANG: " + `${e.target.value}`);
+    console.log("LANG: " + `${newWord.user}`);
+    // console.log("LANG: " + `${newWord.translate}`);
   };
 
   const close = () => {
     setShow(false);
     setTimeout(() => {
-      navigate("/words/w/word/asc");
+      navigate(`${wordPath}`);
     }, 200);
   };
 
@@ -26,6 +30,8 @@ export default function ModalCrud() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    newWord.type = "W";
 
     try {
       await fetch(`${serverUrl}words`, {
@@ -46,7 +52,32 @@ export default function ModalCrud() {
         <Modal.Title>Adding Word</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {/* ====================== USER SELECTION */}
         <Form>
+          <Form.Group className="mb-3" controlId="FormFieldUser">
+            <Form.Control
+              type="text"
+              placeholder="User"
+              name="user"
+              value={(newWord.user = "José")}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          {/* ====================== LANGUAGE SELECTION */}
+          <Form.Group className="mb-3" controlId="FormFieldLanguage">
+            <Form.Label>Language</Form.Label>
+            <Form.Select
+              aria-label="Floating label select example"
+              name="language"
+              value={newWord.language}
+              onChange={handleChange}
+            >
+              <option value="">Click to show options</option>
+              <option value="EN">English</option>
+              <option value="IT">Italian</option>
+            </Form.Select>
+          </Form.Group>
+          {/* ====================== INPUT WORD */}
           <Form.Group className="mb-3" controlId="FormFieldWord">
             <Form.Label>Word</Form.Label>
             <Form.Control
@@ -57,18 +88,19 @@ export default function ModalCrud() {
               onChange={handleChange}
             />
           </Form.Group>
-
-          <Form.Group className="mb-3" controlId="FormFieldTranslation">
+          {/* ====================== INPUT TRANSLATION */}
+          <Form.Group className="mb-3" controlId="FormFieldTranslate">
             <Form.Label>Translation</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter the word translation"
-              name="translation"
-              value={newWord.translation}
+              name="translate"
+              value={newWord.translate}
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicComment">
+          {/* ====================== INPUT COMMENT */}
+          <Form.Group className="mb-3" controlId="FormFieldComment">
             <Form.Label>Comment</Form.Label>
             <Form.Control
               type="text"
