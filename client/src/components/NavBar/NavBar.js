@@ -22,6 +22,7 @@ export default function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
+              {/* // RUTA WORDS NO EXISTE --- NOTA PARA HACER MERGE */}
               <Nav.Link href="/words/w/word/asc">Word list</Nav.Link>
               <Nav.Link href="/words/s/word/asc">Sentences list</Nav.Link>
             </Nav>
