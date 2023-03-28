@@ -22,8 +22,8 @@ export default function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/words">Word list</Nav.Link>
-              <Nav.Link href="/sentences">Sentences list</Nav.Link>
+              <Nav.Link href="/words/w/word/asc">Word list</Nav.Link>
+              <Nav.Link href="/words/s/word/asc">Sentences list</Nav.Link>
             </Nav>
             {(location.pathname === "/words/w/word/asc" ||
               location.pathname === "/add") && (
