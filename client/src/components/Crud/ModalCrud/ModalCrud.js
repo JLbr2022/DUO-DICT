@@ -3,7 +3,15 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 export default function ModalCrud() {
-  const initialState = { word: "", translation: "", comment: "" };
+  const initialState = {
+    user: "José",
+    type: "W",
+    language: "",
+    word: "",
+    translate: "",
+    comment: "",
+  };
+
   const serverUrl = process.env.REACT_APP_SERVER_URL;
   const wordPath = "/words/w/word/asc";
   const navigate = useNavigate();
@@ -27,7 +35,7 @@ export default function ModalCrud() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    newWord.type = "W";
+    // newWord.type = "W";
 
     try {
       await fetch(`${serverUrl}words`, {
@@ -55,7 +63,7 @@ export default function ModalCrud() {
               type="text"
               placeholder="User"
               name="user"
-              value={(newWord.user = "José")}
+              value={newWord.user}
               onChange={handleChange}
             />
           </Form.Group>
@@ -86,7 +94,7 @@ export default function ModalCrud() {
           </Form.Group>
           {/* ====================== INPUT TRANSLATION */}
           <Form.Group className="mb-3" controlId="FormFieldTranslate">
-            <Form.Label>Translation</Form.Label>
+            <Form.Label>Translate</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter the word translation"
