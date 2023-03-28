@@ -1,15 +1,10 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
-// import { useState } from "react";
-
-// import DisplayAllWords from "../DisplayAllWords/DisplayAllWords";
 
 export default function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
-  // let path = "";
-  // const [wordListUrl, setWordListUrl] = useState("");
 
   const handleShowWord = () => {
     navigate("/words/w/word/asc/add");
@@ -50,9 +45,6 @@ export default function NavBar() {
                 Add Sentence
               </Button>
             )}
-            {/* <Button variant="primary" onClick={handleShow}>
-              Add Word
-            </Button> */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
