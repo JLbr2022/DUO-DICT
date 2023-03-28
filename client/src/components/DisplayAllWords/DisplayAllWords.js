@@ -1,5 +1,5 @@
 import { Table } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 export default function DisplayAllWords() {
@@ -9,17 +9,29 @@ export default function DisplayAllWords() {
   const location = useLocation();
   const [words, setWords] = useState([]);
 
-  // create a fetch function
-  const fetchWords = async (serverUrl) => {
-    const response = await fetch(`${url}`);
+  // create a memoized fetch function
+  const fetchWords = useCallback(async () => {
+    const response = await fetch(url);
     const data = await response.json();
     setWords(data);
-  };
+  }, [url]);
 
   // call the fetch function
   useEffect(() => {
     fetchWords();
-  }, [location, url]);
+  }, [location, fetchWords]);
+
+  // // create a fetch function
+  // const fetchWords = async () => {
+  //   const response = await fetch(url);
+  //   const data = await response.json();
+  //   setWords(data);
+  // };
+
+  // // call the fetch function
+  // useEffect(() => {
+  //   fetchWords();
+  // }, [location, url]);
 
   return (
     <>
