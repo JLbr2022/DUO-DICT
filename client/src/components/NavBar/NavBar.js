@@ -1,12 +1,15 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
+// import { useState } from "react";
+
+// import DisplayAllWords from "../DisplayAllWords/DisplayAllWords";
 
 export default function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
-  let path = "";
-  const [wordListUrl, setWordListUrl] = useState("");
+  // let path = "";
+  // const [wordListUrl, setWordListUrl] = useState("");
 
   const handleShowWord = () => {
     navigate("/words/w/word/asc/add");
@@ -27,16 +30,21 @@ export default function NavBar() {
               <Nav.Link href="/words">Word list</Nav.Link>
               <Nav.Link href="/sentences">Sentences list</Nav.Link>
             </Nav>
-            {(location.pathname === "/words" ||
+            {(location.pathname === "/words/w/word/asc" ||
               location.pathname === "/add") && (
-              <Button variant="primary" href="/words/add" onClick={handleShow}>
+              <Button
+                variant="primary"
+                href="/words/w/word/asc/add"
+                onClick={handleShowWord}
+              >
                 Add Word
               </Button>
             )}
-            {location.pathname === "/sentences" && (
+            {(location.pathname === "/words/s/word/asc" ||
+              location.pathname === "/add") && (
               <Button
                 variant="primary"
-                href="/sentence"
+                href="/words/s/word/asc/add"
                 onClick={handleShowSentences}
               >
                 Add Sentence
