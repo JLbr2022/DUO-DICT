@@ -1,37 +1,9 @@
+import { useContext } from "react";
 import { Table } from "react-bootstrap";
-import { useState, useEffect, useCallback } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { AppContext } from "../context/appContext";
 
 export default function DisplayAllWords() {
-  const serverUrl = process.env.REACT_APP_SERVER_URL;
-  const path = "words/w/word/asc";
-  const url = `${serverUrl}${path}`;
-  const location = useLocation();
-  const [words, setWords] = useState([]);
-
-  // create a memoized fetch function
-  const fetchWords = useCallback(async () => {
-    const response = await fetch(url);
-    const data = await response.json();
-    setWords(data);
-  }, [url]);
-
-  // call the fetch function
-  useEffect(() => {
-    fetchWords();
-  }, [location, fetchWords]);
-
-  // // create a fetch function
-  // const fetchWords = async () => {
-  //   const response = await fetch(url);
-  //   const data = await response.json();
-  //   setWords(data);
-  // };
-
-  // // call the fetch function
-  // useEffect(() => {
-  //   fetchWords();
-  // }, [location, url]);
+  const { words } = useContext(AppContext);
 
   return (
     <>
@@ -59,7 +31,6 @@ export default function DisplayAllWords() {
           ))}
         </tbody>
       </Table>
-      <Outlet />
     </>
   );
 }
