@@ -55,7 +55,6 @@ export default function ModalCrud() {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          {}
           {isWord ? "Adding a word" : "Adding a sentence"}
         </Modal.Title>
       </Modal.Header>
