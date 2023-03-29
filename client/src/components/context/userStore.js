@@ -1,3 +1,6 @@
+// This module contain all App's logic control
+// to keep the components code clear and easy to understand
+
 import { useEffect, useState } from "react";
 import { api } from "./api";
 

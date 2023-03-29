@@ -1,22 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useLocation } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/appContext";
+
+const initialState = {
+  user: "José",
+  type: "W",
+  language: "",
+  word: "",
+  translate: "",
+  comment: "",
+};
 
 export default function ModalCrud() {
-  const initialState = {
-    user: "José",
-    type: "W",
-    language: "",
-    word: "",
-    translate: "",
-    comment: "",
-  };
-
-  const serverUrl = process.env.REACT_APP_SERVER_URL;
-  const wordPath = "/words/w/word/asc";
-  const navigate = useNavigate();
-  const [show, setShow] = useState(true);
+  const location = useLocation();
+  const isWord = location.pathname.includes("/words/w");
   const [newWord, setNewWord] = useState({ ...initialState });
+  const { getWords, postWord, show, setShow, getSentences, postSentence } =
+    useContext(AppContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,9 +26,7 @@ export default function ModalCrud() {
 
   const close = () => {
     setShow(false);
-    setTimeout(() => {
-      navigate(`${wordPath}`);
-    }, 200);
+    setNewWord(initialState);
   };
 
   const handleClose = () => close();
@@ -35,21 +34,20 @@ export default function ModalCrud() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // newWord.type = "W";
-
     try {
-      await fetch(`${serverUrl}words`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newWord),
-      });
+      if (isWord) {
+        await postWord(newWord);
+        getWords();
+      } else {
+        await postSentence(newWord);
+        getSentences();
+      }
       close();
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
