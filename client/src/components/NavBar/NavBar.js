@@ -7,14 +7,10 @@ import { AppContext } from "../context/appContext";
 export default function NavBar() {
   const location = useLocation();
   const { setShow } = useContext(AppContext);
+  const isWord = location.pathname.includes("/words/w");
+  console.log({ isWord });
 
-  const handleShowWord = () => {
-    navigate("/words/w/word/asc/add");
-  };
-
-  const handleShowSentences = () => {
-    navigate("/words/s/word/asc/add");
-  };
+  const handleShow = () => setShow(true);
 
   return (
     <>

@@ -1,29 +1,9 @@
+import { useContext } from "react";
 import { Table } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-
-// const serverUrl = process.env.REACT_APP_SERVER_URL;
+import { AppContext } from "../context/appContext";
 
 export default function Sentences() {
-  const serverUrl = process.env.REACT_APP_SERVER_URL;
-  const path = "words/s/word/asc";
-  const url = `${serverUrl}${path}`;
-  const location = useLocation();
-  const [sentences, setSentences] = useState([]);
-
-  // create a fetch function
-  const fetchWords = async (serverUrl) => {
-    // const response = await fetch(`${serverUrl}words`);
-    const response = await fetch(`${url}`);
-    const data = await response.json();
-    setSentences(data);
-  };
-
-  // call the fetch function
-  useEffect(() => {
-    fetchWords();
-  }, [location, url]);
-
+  const { sentences } = useContext(AppContext);
 
   return (
     <>
@@ -31,6 +11,8 @@ export default function Sentences() {
         <thead>
           <tr>
             <th>ID</th>
+            <th>TYPE</th>
+            <th>LANGUAGE</th>
             <th>WORD</th>
             <th>TRANSLATION</th>
             <th>COMMENTS</th>
@@ -40,6 +22,8 @@ export default function Sentences() {
           {sentences?.map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
+              <td>{item.type}</td>
+              <td>{item.language}</td>
               <td>{item.word}</td>
               <td>{item.translate}</td>
               <td>{item.comment}</td>
@@ -47,7 +31,6 @@ export default function Sentences() {
           ))}
         </tbody>
       </Table>
-      <Outlet />
     </>
   );
 }

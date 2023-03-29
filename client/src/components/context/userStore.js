@@ -6,8 +6,8 @@ import { api } from "./api";
 
 export const useStore = () => {
   const [words, setWords] = useState([]);
-  const [sentences, setSentences] = useState([]);
   const [show, setShow] = useState(false);
+  const [sentences, setSentences] = useState([]);
   const getWords = () =>
     api.getWords().then((response) => setWords(response.data));
   const getSentences = () =>
