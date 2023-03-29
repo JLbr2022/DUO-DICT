@@ -5,7 +5,6 @@ import { AppContext } from "../../context/appContext";
 
 const initialState = {
   user: "José",
-  type: "W",
   language: "",
   word: "",
   translate: "",
@@ -24,23 +23,27 @@ export default function ModalCrud() {
     setNewWord({ ...newWord, [name]: value });
   };
 
+  // CLOSE MODAL AND RESET STATE
   const close = () => {
     setShow(false);
     setNewWord(initialState);
   };
 
+  // CLOSE MODAL
   const handleClose = () => close();
 
+  // POST WORD/SENTENCE IF isWord = true: TYPE = "W" ELSE TYPE = "S"
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       if (isWord) {
-        await postWord(newWord);
+        await postWord({ ...newWord, type: "W" });
         getWords();
       } else {
-        await postSentence(newWord);
+        await postSentence({ ...newWord, type: "S" });
         getSentences();
+        console.log(newWord);
       }
       close();
     } catch (error) {
@@ -51,7 +54,10 @@ export default function ModalCrud() {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Adding Word</Modal.Title>
+        <Modal.Title>
+          {}
+          {isWord ? "Adding a word" : "Adding a sentence"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {/* ====================== USER SELECTION */}
@@ -81,10 +87,10 @@ export default function ModalCrud() {
           </Form.Group>
           {/* ====================== INPUT WORD */}
           <Form.Group className="mb-3" controlId="FormFieldWord">
-            <Form.Label>Word</Form.Label>
+            <Form.Label>{isWord ? "Word" : "Sentence"}</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter a word"
+              placeholder={isWord ? "Enter a word" : "Enter a sentence"}
               name="word"
               value={newWord.word}
               onChange={handleChange}
@@ -95,7 +101,11 @@ export default function ModalCrud() {
             <Form.Label>Translate</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter the word translation"
+              placeholder={
+                isWord
+                  ? "Enter the word translation"
+                  : "Enter the sentence translation"
+              }
               name="translate"
               value={newWord.translate}
               onChange={handleChange}

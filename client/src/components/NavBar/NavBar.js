@@ -8,7 +8,6 @@ export default function NavBar() {
   const location = useLocation();
   const { setShow } = useContext(AppContext);
   const isWord = location.pathname.includes("/words/w");
-  console.log({ isWord });
 
   const handleShow = () => setShow(true);
 

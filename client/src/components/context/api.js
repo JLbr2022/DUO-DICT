@@ -8,9 +8,9 @@ export const api = {
   getSentences: () => axios.get(`${sentencesPath}`).catch(console.log),
 
   postWord: (payload) =>
-    axios.post(`${serverUrl}words`, payload).catch(console.log), // TODO change url
+    axios.post(`${serverUrl}words`, payload).catch(console.log),
   postSentence: (payload) =>
-    axios.post(`${serverUrl}words`, payload).catch(console.log), // TODO change url
+    axios.post(`${serverUrl}words`, payload).catch(console.log),
 };
 
 // payload: word or sentense content
