@@ -12,16 +12,16 @@ export default function App() {
   // const wordPath = "/words/w/word/asc";
 
   return (
-    <Container fluid>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/words" element={<DisplayAllWords />} > */}
-        <Route path="/words/w/word/asc" element={<DisplayAllWords />}>
-          <Route path="add" element={<ModalCrud />}></Route>
-        </Route>
-        <Route path="/words/s/word/asc" element={<Sentences />} />
-      </Routes>
-    </Container>
+    <AppContext.Provider value={store}>
+      <Container fluid>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/words/w/word/asc" element={<DisplayAllWords />} />
+          <Route path="/words/s/word/asc" element={<Sentences />} />
+        </Routes>
+      </Container>
+      <ModalCrud />
+    </AppContext.Provider>
   );
 }
