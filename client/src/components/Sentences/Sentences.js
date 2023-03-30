@@ -2,10 +2,41 @@ import { useContext } from "react";
 import { Table } from "react-bootstrap";
 import { Delete, Save } from "@mui/icons-material/";
 import { AppContext } from "../context/appContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./Sentences.css";
 
 export default function Sentences() {
   const { sentences } = useContext(AppContext);
+
+  const handleEdit = () => {
+    console.log("edit");
+    toast.success("Saving changes...", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
+  const handleDelete = () => {
+    toast.error("Deleting word...", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
+    console.log("delete");
+  };
 
   return (
     <>
@@ -30,10 +61,11 @@ export default function Sentences() {
               <td>{item.word}</td>
               <td>{item.translate}</td>
               <td>{item.comment}</td>
-              <tb className="ControlIcons">
-                <Save />
-                <Delete />
-              </tb>
+              <td className="ControlIcons">
+                <Save onClick={handleEdit} />
+                <Delete onClick={handleDelete} />
+                <ToastContainer />
+              </td>
             </tr>
           ))}
         </tbody>
