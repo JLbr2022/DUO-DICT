@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import { Table } from "react-bootstrap";
+import { Delete, Save } from "@mui/icons-material/";
 import { AppContext } from "../context/appContext";
+import "./Sentences.css";
 
 export default function Sentences() {
   const { sentences } = useContext(AppContext);
@@ -16,6 +18,7 @@ export default function Sentences() {
             <th>WORD</th>
             <th>TRANSLATION</th>
             <th>COMMENTS</th>
+            <th>CONTROLS</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +30,10 @@ export default function Sentences() {
               <td>{item.word}</td>
               <td>{item.translate}</td>
               <td>{item.comment}</td>
+              <tb className="ControlIcons">
+                <Save />
+                <Delete />
+              </tb>
             </tr>
           ))}
         </tbody>
