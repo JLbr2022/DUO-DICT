@@ -1,36 +1,90 @@
-import { useContext } from "react";
-import { Table } from "react-bootstrap";
+import * as React from "react";
+import { useContext, useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
 import { AppContext } from "../context/appContext";
+import { Delete, Save } from "@mui/icons-material/";
+import "./DisplayAllWords.css";
+import { Button } from "@mui/material";
 
 export default function DisplayAllWords() {
   const { words } = useContext(AppContext);
+  const [pageSize, setPageSize] = useState(5);
+  const [page, setPage] = useState(0);
+
+  const handlePageChange = (params) => {
+    setPage(params.page);
+  };
+
+  const handlePageSizeChange = (params) => {
+    setPageSize(params.pageSize);
+  };
+
+  const handleEdit = () => {
+    console.log("edit");
+  };
+  const handleDelete = () => {
+    console.log("delete");
+  };
 
   return (
-    <>
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>TYPE</th>
-            <th>LANGUAGE</th>
-            <th>WORD</th>
-            <th>TRANSLATION</th>
-            <th>COMMENTS</th>
-          </tr>
-        </thead>
-        <tbody>
-          {words?.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.type}</td>
-              <td>{item.language}</td>
-              <td>{item.word}</td>
-              <td>{item.translate}</td>
-              <td>{item.comment}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </>
+    <DataGrid
+      className="DataGridCss"
+      style={{
+        height: "700px",
+        width: "100%",
+        // backgroundColor: "grey",
+      }}
+      rows={words}
+      columns={[
+        { field: "id", headerName: "ID", width: 70 },
+        { field: "type", headerName: "Type", width: 90, editable: true },
+        {
+          field: "language",
+          headerName: "Language",
+          width: 90,
+          editable: true,
+        },
+        { field: "word", headerName: "Word", width: 230, editable: true },
+        {
+          field: "translate",
+          headerName: "Translate",
+          width: 230,
+          editable: true,
+        },
+        {
+          field: "comment",
+          headerName: "Comment",
+          width: 230,
+          editable: true,
+        },
+        {
+          field: "edit",
+          headerName: "Edit",
+          width: 60,
+          renderCell: () => (
+            <Button onClick={handleEdit}>
+              <Save />
+            </Button>
+          ),
+        },
+        {
+          field: "delete",
+          headerName: "Delete",
+          width: 150,
+          renderCell: () => (
+            <Button onClick={handleDelete}>
+              <Delete color="error" />
+            </Button>
+          ),
+        },
+      ]}
+      pageSize={pageSize}
+      page={page}
+      onPageSizeChange={handlePageSizeChange}
+      onPageChange={handlePageChange}
+      rowsPerPageOptions={[5, 10, 20]}
+      pagination
+      // checkboxSelection
+    />
   );
 }
