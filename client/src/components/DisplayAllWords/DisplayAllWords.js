@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { AppContext } from "../context/appContext";
 import { Delete, Save } from "@mui/icons-material/";
-import "./DisplayAllWords.css";
+// import "./DisplayAllWords.css";
 import { Button } from "@mui/material";
 
 export default function DisplayAllWords() {

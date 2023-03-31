@@ -8,21 +8,32 @@ import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import { AppContext } from "./components/context/appContext";
 import { useStore } from "./components/context/userStore";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 
 export default function App() {
   const store = useStore();
 
   return (
-    <AppContext.Provider value={store}>
-      <Container fluid>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/words/w/word/asc" element={<DisplayAllWords />} />
-          <Route path="/words/s/word/asc" element={<Sentences />} />
-        </Routes>
-      </Container>
-      <ModalCrud />
-    </AppContext.Provider>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <AppContext.Provider value={store}>
+        <Container fluid>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/words/w/word/asc" element={<DisplayAllWords />} />
+            <Route path="/words/s/word/asc" element={<Sentences />} />
+          </Routes>
+        </Container>
+        <ModalCrud />
+      </AppContext.Provider>
+    </ThemeProvider>
   );
 }

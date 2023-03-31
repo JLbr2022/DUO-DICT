@@ -10,7 +10,6 @@ export default function Sentences() {
   const { sentences } = useContext(AppContext);
 
   const handleEdit = () => {
-    console.log("edit");
     toast.success("Saving changes...", {
       position: "top-right",
       autoClose: 2000,
@@ -21,10 +20,11 @@ export default function Sentences() {
       progress: undefined,
       theme: "dark",
     });
+    console.log("edit");
   };
 
   const handleDelete = () => {
-    toast.error("Deleting word...", {
+    toast.error("Deleting sentence...", {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -34,7 +34,6 @@ export default function Sentences() {
       progress: undefined,
       theme: "dark",
     });
-
     console.log("delete");
   };
 
