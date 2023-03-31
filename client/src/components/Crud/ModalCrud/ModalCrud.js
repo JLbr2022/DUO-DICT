@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
 import { AppContext } from "../../context/appContext";
+import "./ModalCrud.css";
 
 const initialState = {
   user: "José",
@@ -52,7 +53,7 @@ export default function ModalCrud() {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} className="textColorBlack">
       <Modal.Header closeButton>
         <Modal.Title>
           {isWord ? "Adding a word" : "Adding a sentence"}
