@@ -24,7 +24,7 @@ export const api = {
     axios.put(`${serverUrl}words/${payload._id}`, payload).catch(console.log),
 
   // DELETE Queries
-  deleteWord: (payload) =>
+  deleteRegister: (payload) =>
     axios
       .delete(`${serverUrl}words/${payload._id}`, payload)
       .catch(console.log),

@@ -21,19 +21,21 @@ export default function App() {
   const store = useStore();
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <AppContext.Provider value={store}>
-        <Container fluid>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/words/w/word/asc" element={<DisplayAllWords />} />
-            <Route path="/words/s/word/asc" element={<Sentences />} />
-          </Routes>
-        </Container>
-        <ModalCrud />
-      </AppContext.Provider>
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <AppContext.Provider value={store}>
+          <Container fluid>
+            <NavBar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/words/w/word/asc" element={<DisplayAllWords />} />
+              <Route path="/words/s/word/asc" element={<Sentences />} />
+            </Routes>
+          </Container>
+          <ModalCrud />
+        </AppContext.Provider>
+      </ThemeProvider>
+    </>
   );
 }

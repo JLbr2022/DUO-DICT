@@ -1,29 +1,48 @@
-import * as React from "react";
 import { useContext, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { AppContext } from "../context/appContext";
 import { Delete, Save } from "@mui/icons-material/";
-// import "./DisplayAllWords.css";
 import { Button } from "@mui/material";
+import "./DisplayAllWords.css";
+import { useLocation } from "react-router-dom";
 
 export default function DisplayAllWords() {
+  const location = useLocation();
+  const isWord = location.pathname.includes("/words/w");
   const { words } = useContext(AppContext);
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(0);
+  const { getWords, getSentences, deleteRegister } = useContext(AppContext);
 
+  // FUNCTION TO CHANGE THE PAGE IN PAGINATION
   const handlePageChange = (params) => {
     setPage(params.page);
   };
 
+  // FUNCTION TO CHANGE THE QUANTITY OF ROWS TO SHOW IN PAGINATION
   const handlePageSizeChange = (params) => {
     setPageSize(params.pageSize);
   };
 
   const handleEdit = () => {
+    window.alert("edit");
+
     console.log("edit");
   };
-  const handleDelete = () => {
-    console.log("delete");
+
+  // FUNCTION TO DELETE A WORD OR SENTENCE
+  const handleDelete = async (id) => {
+    try {
+      console.log("delete ID: ", id);
+      await deleteRegister(id);
+      if (isWord) {
+        getWords();
+      } else {
+        getSentences();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -8,13 +8,26 @@ export const useStore = () => {
   const [show, setShow] = useState(false);
   const [words, setWords] = useState([]);
   const [sentences, setSentences] = useState([]);
-  // const [home, setHome] = useState([]);
-  const getWords = () =>
+
+  const getWords = () => {
     api.getWords().then((response) => setWords(response.data));
-  const getSentences = () =>
+  };
+
+  const getSentences = () => {
     api.getSentences().then((response) => setSentences(response.data));
-  const postWord = (payload) => api.postWord(payload);
-  const postSentence = (payload) => api.postSentence(payload);
+  };
+
+  const postWord = (payload) => {
+    api.postWord(payload);
+  };
+
+  const postSentence = (payload) => {
+    api.postSentence(payload);
+  };
+
+  const deleteRegister = (payload) => {
+    api.deleteRegister(payload);
+  };
 
   useEffect(() => {
     getWords();
@@ -24,13 +37,12 @@ export const useStore = () => {
   return {
     words,
     sentences,
-    // home,
-    // setHome,
     getWords,
     getSentences,
     postWord,
     postSentence,
     show,
     setShow,
+    deleteRegister,
   };
 };
