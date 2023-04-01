@@ -9,27 +9,27 @@ const sentencesPath = serverUrl + "words/s/word/asc"; // ENDPOINT to get all sen
 export const api = {
   // GETS Queries
   getWords: () => axios.get(`${wordsPath}`).catch(console.log),
+
   getSentences: () => axios.get(`${sentencesPath}`).catch(console.log),
 
   // POST Queries
   postWord: (payload) =>
     axios.post(`${serverUrl}words`, payload).catch(console.log),
+
   postSentence: (payload) =>
     axios.post(`${serverUrl}words`, payload).catch(console.log),
 
-  // PUT Queries
-  putWord: (payload) =>
-    axios.put(`${serverUrl}words/${payload._id}`, payload).catch(console.log),
-  putSentence: (payload) =>
-    axios.put(`${serverUrl}words/${payload._id}`, payload).catch(console.log),
+  // PUT Query
+  putWord: (id, payload) =>
+    axios.put(`${serverUrl}words/${id}`, payload).catch(console.log),
 
-  // DELETE Queries
-  deleteRegister: (payload) =>
-    axios
-      .delete(`${serverUrl}words/${payload._id}`, payload)
-      .catch(console.log),
-  deleteSentence: (payload) =>
-    axios
-      .delete(`${serverUrl}words/${payload._id}`, payload)
-      .catch(console.log),
+  putSentence: (id, payload) =>
+    axios.put(`${serverUrl}words/${id}`, payload).catch(console.log),
+
+  // DELETE Query
+  deleteWord: (id) =>
+    axios.delete(`${serverUrl}words/${id}`).catch(console.log),
+
+  deleteSentence: (id) =>
+    axios.delete(`${serverUrl}words/${id}`).catch(console.log),
 };
