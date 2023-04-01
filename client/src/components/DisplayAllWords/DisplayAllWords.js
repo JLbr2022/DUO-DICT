@@ -2,17 +2,18 @@ import { useContext, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { AppContext } from "../context/appContext";
 import { Delete, Save } from "@mui/icons-material/";
-import { Button, Container, Tooltip, IconButton } from "@mui/material";
+import { Tooltip, IconButton } from "@mui/material";
+import styled from "@emotion/styled";
 import "./DisplayAllWords.css";
 import { useLocation } from "react-router-dom";
-import styled from "@emotion/styled";
+import "../../components/NavBar/NavBar";
 
 export default function DisplayAllWords() {
   const location = useLocation();
   const isWord = location.pathname.includes("/words/w");
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(0);
-  const { words, getWords, getSentences, deleteWord, deleteSentence } =
+  const { filterWords, getWords, getSentences, deleteWord, deleteSentence } =
     useContext(AppContext);
 
   // FUNCTION TO CHANGE THE PAGE IN PAGINATION
@@ -33,8 +34,8 @@ export default function DisplayAllWords() {
     console.log(word);
   };
 
-  // CREATE A CUSTOM TOOLTIP TO SHOW THE DELETE/EDIT BUTTON
-  const DarkBgTooltip = styled(({ className, ...props }) => (
+  // CREATE A CUSTOM TOOLTIP TO SHOW IT WHEN HOVER UP DELETE/EDIT BUTTONS
+  const DarkBgbTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
   ))(({ theme }) => ({
     "& .MuiTooltip-tooltip": {
@@ -60,7 +61,7 @@ export default function DisplayAllWords() {
       <DataGrid
         stickyHeader="true"
         hover="true"
-        rows={words}
+        rows={filterWords}
         columns={[
           { field: "id", headerName: "ID", width: 70 },
           { field: "type", headerName: "Type", minWidth: 90, editable: false },
@@ -88,11 +89,11 @@ export default function DisplayAllWords() {
             headerName: "Edit",
             minWidth: 60,
             renderCell: (word) => (
-              <DarkBgTooltip title="Edit word">
+              <DarkBgbTooltip title="Edit word">
                 <IconButton onClick={() => handleEdit(word)}>
                   <Save color="primary" />
                 </IconButton>
-              </DarkBgTooltip>
+              </DarkBgbTooltip>
             ),
           },
           {
@@ -100,11 +101,11 @@ export default function DisplayAllWords() {
             headerName: "Delete",
             minWidth: 60,
             renderCell: (word) => (
-              <DarkBgTooltip title="Delete word">
+              <DarkBgbTooltip title="Delete word">
                 <IconButton onClick={() => handleDelete(word)}>
                   <Delete color="error" />
                 </IconButton>
-              </DarkBgTooltip>
+              </DarkBgbTooltip>
             ),
           },
         ]}

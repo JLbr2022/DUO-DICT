@@ -1,23 +1,55 @@
-import { useContext } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { useContext, useState } from "react";
+import { Container, Nav, Navbar, Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 import { AppContext } from "../context/appContext";
 
 export default function NavBar() {
-  const location = useLocation();
   const { setShow } = useContext(AppContext);
-  const isWord = location.pathname.includes("/words/w");
-  const isSentence = location.pathname.includes("/words/s");
+  const { words, sentences, applyFilter, isWord, isSentence } =
+    useContext(AppContext);
 
   const handleShow = () => setShow(true);
 
+  // hadleSearch FUNCTION TO DO A DINAMIC SEARCH AND FILTER THE WORDS LIST
+
+  const handleSearch = (value) => {
+    // console.log(value);
+    const data = isSentence() ? sentences : words;
+    applyFilter(value, data);
+  };
+
   const getButtonName =
-    isWord || isSentence ? (
+    isWord() || isSentence() ? (
       <Button variant="primary" onClick={handleShow}>
-        {isWord ? "Add Word" : "Add Sentence"}
+        {isWord() ? "Add Word" : "Add Sentence"}
       </Button>
     ) : null;
+
+  const getSearchField = isWord() ? (
+    <Form className="d-flex">
+      <Form.Control
+        type="search"
+        placeholder="Search word..."
+        className="me-5"
+        aria-label="Search"
+        onChange={(e) => {
+          handleSearch(e.target.value);
+        }}
+      />
+    </Form>
+  ) : isSentence() ? (
+    <Form className="d-flex">
+      <Form.Control
+        type="search"
+        placeholder="Search sentence..."
+        className="me-5"
+        aria-label="Search"
+        onChange={(e) => {
+          handleSearch(e.target.value);
+        }}
+      />
+    </Form>
+  ) : null;
 
   return (
     <>
@@ -30,6 +62,7 @@ export default function NavBar() {
               <Nav.Link href="/words/w/word/asc">Word list</Nav.Link>
               <Nav.Link href="/words/s/word/asc">Sentences list</Nav.Link>
             </Nav>
+            {getSearchField}
             {getButtonName}
           </Navbar.Collapse>
         </Container>

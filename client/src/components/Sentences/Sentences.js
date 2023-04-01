@@ -7,8 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Sentences.css";
 
 export default function Sentences() {
-  const { sentences } = useContext(AppContext);
-
+  const { filterSentences } = useContext(AppContext);
+  console.log(filterSentences);
   const handleEdit = () => {
     toast.success("Saving changes...", {
       position: "top-right",
@@ -52,7 +52,7 @@ export default function Sentences() {
           </tr>
         </thead>
         <tbody>
-          {sentences?.map((item) => (
+          {filterSentences?.map((item) => (
             <tr key={item.id}>
               <td>{item.id}</td>
               <td>{item.type}</td>
