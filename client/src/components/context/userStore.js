@@ -25,8 +25,8 @@ export const useStore = () => {
     api.postSentence(payload);
   };
 
-  const deleteRegister = (payload) => {
-    api.deleteRegister(payload);
+  const deleteWord = (payload) => {
+    api.deleteWord(payload);
   };
 
   useEffect(() => {
@@ -41,8 +41,8 @@ export const useStore = () => {
     getSentences,
     postWord,
     postSentence,
+    deleteWord,
     show,
     setShow,
-    deleteRegister,
   };
 };
