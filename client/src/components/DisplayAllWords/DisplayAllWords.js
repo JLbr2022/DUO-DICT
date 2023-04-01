@@ -2,9 +2,10 @@ import { useContext, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { AppContext } from "../context/appContext";
 import { Delete, Save } from "@mui/icons-material/";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Tooltip, IconButton } from "@mui/material";
 import "./DisplayAllWords.css";
 import { useLocation } from "react-router-dom";
+import styled from "@emotion/styled";
 
 export default function DisplayAllWords() {
   const location = useLocation();
@@ -31,6 +32,16 @@ export default function DisplayAllWords() {
 
     console.log(word);
   };
+
+  // CREATE A CUSTOM TOOLTIP TO SHOW THE DELETE/EDIT BUTTON
+  const DarkBgTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    "& .MuiTooltip-tooltip": {
+      backgroundColor: theme.palette.common.black,
+      fontSize: 16,
+    },
+  }));
 
   // function to handle delete button which deletes the word or sentence
   const handleDelete = (word) => {
@@ -77,9 +88,11 @@ export default function DisplayAllWords() {
             headerName: "Edit",
             minWidth: 60,
             renderCell: (word) => (
-              <Button onClick={() => handleEdit(word)}>
-                <Save color="primary" />
-              </Button>
+              <DarkBgTooltip title="Edit word">
+                <IconButton onClick={() => handleEdit(word)}>
+                  <Save color="primary" />
+                </IconButton>
+              </DarkBgTooltip>
             ),
           },
           {
@@ -87,9 +100,11 @@ export default function DisplayAllWords() {
             headerName: "Delete",
             minWidth: 60,
             renderCell: (word) => (
-              <Button onClick={() => handleDelete(word)}>
-                <Delete color="error" />
-              </Button>
+              <DarkBgTooltip title="Delete word">
+                <IconButton onClick={() => handleDelete(word)}>
+                  <Delete color="error" />
+                </IconButton>
+              </DarkBgTooltip>
             ),
           },
         ]}
