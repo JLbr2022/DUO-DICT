@@ -24,19 +24,21 @@ export default function DisplayAllWords() {
     setPageSize(params.pageSize);
   };
 
-  const handleEdit = () => {
-    window.alert("edit");
+  const handleEdit = (word) => {
+    window.alert(
+      "Editing word: " + word.row.word + ", with id: " + word.row.id
+    );
 
-    console.log("edit");
+    console.log(word);
   };
 
   // function to handle delete button which deletes the word or sentence
-  const handleDelete = (id) => {
+  const handleDelete = (word) => {
     if (isWord) {
-      deleteWord(id);
+      deleteWord(word.id);
       getWords();
     } else {
-      deleteSentence(id);
+      deleteSentence(word.id);
       getSentences();
     }
   };
@@ -45,45 +47,47 @@ export default function DisplayAllWords() {
     // <div className="containerDataGrid" height="500px" width="100%">
     <div className="containerDataGrid">
       <DataGrid
+        stickyHeader="true"
+        hover="true"
         rows={words}
         columns={[
           { field: "id", headerName: "ID", width: 70 },
-          { field: "type", headerName: "Type", width: 90, editable: true },
+          { field: "type", headerName: "Type", minWidth: 90, editable: false },
           {
             field: "language",
             headerName: "Language",
-            width: 90,
-            editable: true,
+            minWidth: 20,
+            editable: false,
           },
-          { field: "word", headerName: "Word", width: 230, editable: true },
+          { field: "word", headerName: "Word", minWidth: 300, editable: false },
           {
             field: "translate",
             headerName: "Translate",
-            width: 230,
-            editable: true,
+            minWidth: 300,
+            editable: false,
           },
           {
             field: "comment",
             headerName: "Comment",
-            width: 230,
-            editable: true,
+            minWidth: 300,
+            editable: false,
           },
           {
             field: "edit",
             headerName: "Edit",
-            width: 60,
-            renderCell: () => (
-              <Button onClick={handleEdit}>
-                <Save />
+            minWidth: 60,
+            renderCell: (word) => (
+              <Button onClick={() => handleEdit(word)}>
+                <Save color="primary" />
               </Button>
             ),
           },
           {
             field: "delete",
             headerName: "Delete",
-            width: 150,
-            renderCell: () => (
-              <Button onClick={() => handleDelete(words.id)}>
+            minWidth: 60,
+            renderCell: (word) => (
+              <Button onClick={() => handleDelete(word)}>
                 <Delete color="error" />
               </Button>
             ),
