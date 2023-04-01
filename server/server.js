@@ -7,6 +7,7 @@ const port = process.env.PORT || 4000;
 // CORS
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -133,6 +134,7 @@ app.post("/words", (req, res) => {
 // DELETE WORD
 app.delete("/words/:id", (req, res) => {
   const id = req.params.id;
+  console.log({ id });
   TbWord.destroy({
     where: { id: id },
   })
