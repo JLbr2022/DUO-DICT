@@ -122,6 +122,12 @@ app.get("/words/type/:type", (req, res) => {
 
 // ADD WORD
 app.post("/words", (req, res) => {
+  const { word, translate } = req.body;
+  const newBody = {
+    ...req.body,
+    word: word.toLowerCase(),
+    translate: translate.toLowerCase(),
+  };
   TbWord.create(req.body)
     .then((word) => {
       res.json(word);

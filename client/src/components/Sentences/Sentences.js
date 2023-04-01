@@ -8,7 +8,6 @@ import "./Sentences.css";
 
 export default function Sentences() {
   const { filterSentences } = useContext(AppContext);
-  console.log(filterSentences);
   const handleEdit = () => {
     toast.success("Saving changes...", {
       position: "top-right",
