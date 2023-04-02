@@ -7,6 +7,7 @@ import styled from "@emotion/styled";
 import "./DisplayAllWords.css";
 import { useLocation } from "react-router-dom";
 import "../../components/NavBar/NavBar";
+import "../Crud/DoDelete/DoDelete";
 
 export default function DisplayAllWords() {
   const location = useLocation();
@@ -26,14 +27,6 @@ export default function DisplayAllWords() {
     setPageSize(params.pageSize);
   };
 
-  const handleEdit = (word) => {
-    window.alert(
-      "Editing word: " + word.row.word + ", with id: " + word.row.id
-    );
-
-    console.log(word);
-  };
-
   // CREATE A CUSTOM TOOLTIP TO SHOW IT WHEN HOVER UP DELETE/EDIT BUTTONS
   const DarkBgbTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -45,14 +38,23 @@ export default function DisplayAllWords() {
   }));
 
   // function to handle delete button which deletes the word or sentence
-  const handleDelete = (word) => {
-    if (isWord) {
-      deleteWord(word.id);
-      getWords();
-    } else {
-      deleteSentence(word.id);
-      getSentences();
-    }
+  // const handleDelete = (word) => {
+  //   if (isWord) {
+  //     deleteWord(word.id);
+  //     getWords();
+  //   } else {
+  //     deleteSentence(word.id);
+  //     getSentences();
+  //   }
+  // };
+
+  // Function to handle edit button which shows an alert with the word and id
+  const handleEdit = (word) => {
+    window.alert(
+      "Editing word: " + word.row.word + ", with id: " + word.row.id
+    );
+
+    console.log(word);
   };
 
   return (

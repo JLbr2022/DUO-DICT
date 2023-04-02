@@ -121,6 +121,7 @@ app.get("/words/type/:type", (req, res) => {
 });
 
 // ADD WORD
+
 app.post("/words", (req, res) => {
   const { word, translate } = req.body;
   const newBody = {
