@@ -1,20 +1,19 @@
 import { useContext, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { AppContext } from "../context/appContext";
 import { Delete, Save } from "@mui/icons-material/";
 import { Tooltip, IconButton } from "@mui/material";
 import styled from "@emotion/styled";
+import { AppContext } from "../context/appContext";
 import "./DisplayAllWords.css";
-import { useLocation } from "react-router-dom";
 import "../../components/NavBar/NavBar";
-import "../Crud/DoDelete/DoDelete";
+// import ModalDelete from "../Crud/ModalDelete/ModalDelete";
 
 export default function DisplayAllWords() {
-  const location = useLocation();
-  const isWord = location.pathname.includes("/words/w");
   const [pageSize, setPageSize] = useState(5);
+  const [word, setWord] = useState("");
   const [page, setPage] = useState(0);
-  const { filterWords, getWords, getSentences, deleteWord, deleteSentence } =
+  const { filterWords } = useContext(AppContext);
+  const { deleteWord, deleteSentence, getWords, getSentences } =
     useContext(AppContext);
 
   // FUNCTION TO CHANGE THE PAGE IN PAGINATION
@@ -37,21 +36,35 @@ export default function DisplayAllWords() {
     },
   }));
 
-  // function to handle delete button which deletes the word or sentence
-  // const handleDelete = (word) => {
-  //   if (isWord) {
-  //     deleteWord(word.id);
-  //     getWords();
-  //   } else {
-  //     deleteSentence(word.id);
-  //     getSentences();
-  //   }
-  // };
+  // function to handle delete words or sentences
+  const handleDelete = (word) => {
+    setWord(word);
+    console.log(word.row.word);
+    const wrd = word.row.word;
+    const isDelete = window.confirm("Deleting word: " + wrd);
+
+    if (isDelete) {
+      deleteWord(word.id);
+      getWords();
+      window.alert("Word [ " + wrd + " ] was deleted!");
+    } else {
+      window.alert("Word [ " + wrd + " ] not deleted!");
+    }
+
+    // isDelete
+    //   ? (deleteWord(word.id), getWords())
+    //   : window.alert("Word " + p + " not deleted!");
+  };
 
   // Function to handle edit button which shows an alert with the word and id
   const handleEdit = (word) => {
     window.alert(
-      "Editing word: " + word.row.word + ", with id: " + word.row.id
+      "Editing word: " +
+        word.row.word +
+        " Editing translation: " +
+        word.row.translate +
+        " , ID: " +
+        word.row.id
     );
 
     console.log(word);
@@ -119,6 +132,7 @@ export default function DisplayAllWords() {
         pagination
         // checkboxSelection
       />
+      {/* <ModalDelete word={word} /> */}
     </div>
   );
 }

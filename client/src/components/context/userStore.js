@@ -1,5 +1,5 @@
 // This module contain all App's logic control
-// to keep the components code clear and easy to understand
+// to keep the components code clean and easy to understand
 
 import { useEffect, useState } from "react";
 import { api } from "./api";
@@ -51,25 +51,30 @@ export const useStore = () => {
     api.deleteWord(payload);
   };
 
+  const deleteSentence = (payload) => {
+    api.deleteSentence(payload);
+  };
+
   useEffect(() => {
     getWords();
     getSentences();
   }, []);
 
   return {
-    words,
-    sentences,
+    applyFilter,
+    deleteWord,
+    deleteSentence,
+    filterWords,
+    filterSentences,
+    getSentences,
     getWords,
     isWord,
     isSentence,
-    getSentences,
     postWord,
     postSentence,
-    deleteWord,
     show,
     setShow,
-    applyFilter,
-    filterWords,
-    filterSentences,
+    sentences,
+    words,
   };
 };

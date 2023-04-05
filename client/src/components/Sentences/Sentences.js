@@ -1,7 +1,7 @@
 import { useContext } from "react";
+import { AppContext } from "../context/appContext";
 import { Table } from "react-bootstrap";
 import { Delete, Save } from "@mui/icons-material/";
-import { AppContext } from "../context/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Sentences.css";

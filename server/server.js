@@ -129,7 +129,7 @@ app.post("/words", (req, res) => {
     word: word.toLowerCase(),
     translate: translate.toLowerCase(),
   };
-  TbWord.create(req.body)
+  TbWord.create(newBody) // DOESN'T WORK, IT DOESN'T SAVE THE NEW WORD AT ALL
     .then((word) => {
       res.json(word);
     })
