@@ -50,6 +50,7 @@ export default function DisplayAllWords() {
       window.alert("Word [ " + wrd + " ] not deleted!");
     }
 
+    // PREGUNTAR POR QUÉ NO FUNCIONA PONER 2 FUNCIONES PARA EJECUTARSE JUNTAS
     // isDelete
     //   ? (deleteWord(word.id), getWords())
     //   : window.alert("Word " + p + " not deleted!");
