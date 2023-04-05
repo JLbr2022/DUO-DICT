@@ -7,6 +7,7 @@ const port = process.env.PORT || 4000;
 // CORS
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -120,8 +121,15 @@ app.get("/words/type/:type", (req, res) => {
 });
 
 // ADD WORD
+
 app.post("/words", (req, res) => {
-  TbWord.create(req.body)
+  const { word, translate } = req.body;
+  const newBody = {
+    ...req.body,
+    word: word.toLowerCase(),
+    translate: translate.toLowerCase(),
+  };
+  TbWord.create(newBody) // DOESN'T WORK, IT DOESN'T SAVE THE NEW WORD AT ALL
     .then((word) => {
       res.json(word);
     })
@@ -133,6 +141,7 @@ app.post("/words", (req, res) => {
 // DELETE WORD
 app.delete("/words/:id", (req, res) => {
   const id = req.params.id;
+  console.log({ id });
   TbWord.destroy({
     where: { id: id },
   })
