@@ -28,15 +28,10 @@ export default function Sentences() {
   const handleDelete = (word) => {
     setWord(word);
     console.log(word);
-    // const stc = word.row.word;
     const isDelete = window.confirm("Deleting sentence: ");
 
     if (isDelete) {
-      // deleteSentence(word.id);
-      // getSentence();
-      // window.alert("Word [ " + stc + " ] was deleted!");
       console.log("delete");
-      // window.alert("Word [ " + stc + " ] not deleted!");
       toast.error("Deleting sentence...[ " + " ]", {
         position: "bottom-right",
         autoClose: 800,

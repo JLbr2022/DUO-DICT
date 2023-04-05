@@ -1,4 +1,4 @@
-// This module contain all App's logic control
+// This module contain all App's logic control and state management
 // to keep the components code clean and easy to understand
 
 import { useEffect, useState } from "react";

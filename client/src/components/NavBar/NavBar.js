@@ -1,9 +1,7 @@
 import { useContext } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Button } from "react-bootstrap";
 import { AppContext } from "../context/appContext";
 import SearchEngine from "../SearchEngine/SearchEngine";
-import { ReactComponent as IconPlus } from "../../images/plus-circle.svg";
 import "./NavBar.css";
 import * as Icon from "react-bootstrap-icons";
 
@@ -20,9 +18,6 @@ export default function NavBar() {
         onClick={handleShow}
       ></Icon.PlusCircle>
     ) : null;
-  {
-    /* {isWord() ? "Add Word" : "Add Sentence"} */
-  }
 
   return (
     <>

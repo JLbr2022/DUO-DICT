@@ -3,11 +3,10 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Delete, Edit } from "@mui/icons-material/";
 import { Tooltip, IconButton } from "@mui/material";
 import styled from "@emotion/styled";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { AppContext } from "../context/appContext";
 import "./DisplayAllWords.css";
 import "../../components/NavBar/NavBar";
-// import ModalDelete from "../Crud/ModalDelete/ModalDelete";
 
 export default function DisplayAllWords() {
   const [pageSize, setPageSize] = useState(5);
@@ -147,7 +146,6 @@ export default function DisplayAllWords() {
         pagination
         // checkboxSelection
       />
-      {/* <ModalDelete word={word} /> */}
     </Box>
   );
 }

@@ -1,4 +1,3 @@
-// import { useContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AppContext } from "./components/context/appContext";
 import { useStore } from "./components/context/userStore";
@@ -21,7 +20,6 @@ const darkTheme = createTheme({
 
 export default function App() {
   const store = useStore();
-  // const [word, setWord] = useState(useContext(AppContext));
 
   return (
     <Box flex justifyContent="center" alignItems="center" width="100%">
