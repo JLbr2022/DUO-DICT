@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext } from "../context/appContext";
 import { Table } from "react-bootstrap";
 import { Delete, Save } from "@mui/icons-material/";
@@ -7,7 +7,10 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Sentences.css";
 
 export default function Sentences() {
-  const { filterSentences } = useContext(AppContext);
+  const { filterSentences, deleteSentence, getSentence } =
+    useContext(AppContext);
+  const [word, setWord] = useState("");
+
   const handleEdit = () => {
     toast.success("Saving changes...", {
       position: "top-right",
@@ -22,18 +25,31 @@ export default function Sentences() {
     console.log("edit");
   };
 
-  const handleDelete = () => {
-    toast.error("Deleting sentence...", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-    console.log("delete");
+  const handleDelete = (word) => {
+    setWord(word);
+    console.log(word);
+    // const stc = word.row.word;
+    const isDelete = window.confirm("Deleting sentence: ");
+
+    if (isDelete) {
+      // deleteSentence(word.id);
+      // getSentence();
+      // window.alert("Word [ " + stc + " ] was deleted!");
+      console.log("delete");
+      // window.alert("Word [ " + stc + " ] not deleted!");
+      toast.error("Deleting sentence...[ " + " ]", {
+        position: "bottom-right",
+        autoClose: 800,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      console.log("Not deleted");
+    }
   };
 
   return (
@@ -61,7 +77,11 @@ export default function Sentences() {
               <td>{item.comment}</td>
               <td className="ControlIcons">
                 <Save onClick={handleEdit} />
-                <Delete onClick={handleDelete} />
+                <Delete
+                  onClick={() => {
+                    handleDelete(word);
+                  }}
+                />
                 <ToastContainer />
               </td>
             </tr>

@@ -72,9 +72,9 @@ export const useStore = () => {
     isSentence,
     postWord,
     postSentence,
-    show,
-    setShow,
     sentences,
+    setShow,
+    show,
     words,
   };
 };

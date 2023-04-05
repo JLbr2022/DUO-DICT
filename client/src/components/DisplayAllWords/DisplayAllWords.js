@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Delete, Save } from "@mui/icons-material/";
+import { Delete, Edit } from "@mui/icons-material/";
 import { Tooltip, IconButton } from "@mui/material";
 import styled from "@emotion/styled";
+import { Box, Container } from "@mui/material";
 import { AppContext } from "../context/appContext";
 import "./DisplayAllWords.css";
 import "../../components/NavBar/NavBar";
@@ -10,11 +11,10 @@ import "../../components/NavBar/NavBar";
 
 export default function DisplayAllWords() {
   const [pageSize, setPageSize] = useState(5);
-  const [word, setWord] = useState("");
   const [page, setPage] = useState(0);
+  const [word, setWord] = useState("");
   const { filterWords } = useContext(AppContext);
-  const { deleteWord, deleteSentence, getWords, getSentences } =
-    useContext(AppContext);
+  const { deleteWord, getWords } = useContext(AppContext);
 
   // FUNCTION TO CHANGE THE PAGE IN PAGINATION
   const handlePageChange = (params) => {
@@ -39,9 +39,8 @@ export default function DisplayAllWords() {
   // function to handle delete words or sentences
   const handleDelete = (word) => {
     setWord(word);
-    console.log(word.row.word);
     const wrd = word.row.word;
-    const isDelete = window.confirm("Deleting word: " + wrd);
+    const isDelete = window.confirm("Deleting word: [ " + wrd + "  ]");
 
     if (isDelete) {
       deleteWord(word.id);
@@ -72,49 +71,64 @@ export default function DisplayAllWords() {
 
   return (
     // <div className="containerDataGrid" height="500px" width="100%">
-    <div className="containerDataGrid">
+    // <div className="containerDataGrid">
+    <Box justifyContent="center" alignItems="center" height="500px">
       <DataGrid
         stickyHeader="true"
         hover="true"
         rows={filterWords}
         columns={[
-          { field: "id", headerName: "ID", width: 70 },
-          { field: "type", headerName: "Type", minWidth: 90, editable: false },
+          {
+            field: "id",
+            headerName: "ID",
+            width: 60,
+          },
+          {
+            field: "type",
+            headerName: "Type",
+            editable: false,
+            width: 50,
+          },
           {
             field: "language",
-            headerName: "Language",
-            minWidth: 20,
+            headerName: "Lang",
             editable: false,
+            width: 50,
           },
-          { field: "word", headerName: "Word", minWidth: 300, editable: false },
+          {
+            field: "word",
+            headerName: "Word",
+            editable: false,
+            width: 250,
+          },
           {
             field: "translate",
             headerName: "Translate",
-            minWidth: 300,
             editable: false,
+            width: 250,
           },
           {
             field: "comment",
             headerName: "Comment",
-            minWidth: 300,
             editable: false,
+            width: 250,
           },
           {
             field: "edit",
             headerName: "Edit",
-            minWidth: 60,
+            width: 50,
             renderCell: (word) => (
               <DarkBgbTooltip title="Edit word">
                 <IconButton onClick={() => handleEdit(word)}>
-                  <Save color="primary" />
+                  <Edit color="primary" />
                 </IconButton>
               </DarkBgbTooltip>
             ),
           },
           {
             field: "delete",
-            headerName: "Delete",
-            minWidth: 60,
+            headerName: "Del",
+            xl: 50,
             renderCell: (word) => (
               <DarkBgbTooltip title="Delete word">
                 <IconButton onClick={() => handleDelete(word)}>
@@ -133,6 +147,6 @@ export default function DisplayAllWords() {
         // checkboxSelection
       />
       {/* <ModalDelete word={word} /> */}
-    </div>
+    </Box>
   );
 }
