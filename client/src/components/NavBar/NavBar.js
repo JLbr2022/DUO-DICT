@@ -1,5 +1,11 @@
 import { useContext } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  Navbar,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { AppContext } from "../context/appContext";
 import SearchEngine from "../SearchEngine/SearchEngine";
 import "./NavBar.css";
@@ -12,11 +18,16 @@ export default function NavBar() {
 
   const getButtonName =
     isWord() || isSentence() ? (
-      <Icon.PlusCircle
-        className="i-add"
-        size="2rem"
-        onClick={handleShow}
-      ></Icon.PlusCircle>
+      <OverlayTrigger
+        placement="bottom"
+        overlay={<Tooltip>Add new word</Tooltip>}
+      >
+        <Icon.PlusCircle
+          className="i-add"
+          size="2rem"
+          onClick={handleShow}
+        ></Icon.PlusCircle>
+      </OverlayTrigger>
     ) : null;
 
   return (
