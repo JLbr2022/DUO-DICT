@@ -47,6 +47,14 @@ export const useStore = () => {
     api.postSentence(payload);
   };
 
+  const putWord = (id, payload) => {
+    api.putWord(id, payload);
+  };
+
+  const putSentence = (id, payload) => {
+    api.putSentence(id, payload);
+  };
+
   const deleteWord = (payload) => {
     api.deleteWord(payload);
   };
@@ -72,6 +80,8 @@ export const useStore = () => {
     isSentence,
     postWord,
     postSentence,
+    putWord,
+    putSentence,
     sentences,
     setShow,
     show,

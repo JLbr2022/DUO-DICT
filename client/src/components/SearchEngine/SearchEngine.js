@@ -7,7 +7,6 @@ export default function SearchEngine() {
   const { words, sentences, applyFilter, isWord, isSentence } =
     useContext(AppContext);
   const handleSearch = (value) => {
-    // console.log(value);
     const data = isSentence() ? sentences : words;
     applyFilter(value, data);
   };

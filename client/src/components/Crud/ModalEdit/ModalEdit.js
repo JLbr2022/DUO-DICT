@@ -1,50 +1,55 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
 import { AppContext } from "../../context/appContext";
-import "./ModalCrud.css";
+import "./ModalEdit.css";
 
 const initialState = {
-  user: "José",
+  user: "",
   language: "",
   word: "",
   translate: "",
   comment: "",
 };
 
-export default function ModalCrud() {
+export default function ModalEdit({ word, open, handleClose }) {
   const location = useLocation();
   const isWord = location.pathname.includes("/words/w");
-  const [newWord, setNewWord] = useState({ ...initialState });
-  const { getWords, postWord, show, setShow, getSentences, postSentence } =
+  const [editWord, setEditWord] = useState(initialState);
+  const { getWords, getSentences, show, setShow, putWord, putSentence } =
     useContext(AppContext);
+
+  useEffect(() => {
+    setEditWord(word);
+  }, [word]);
+
+  if (open) console.log("ModalEdit => ", { editWord });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewWord({ ...newWord, [name]: value });
+    console.log({ name, value });
+    setEditWord({ ...editWord, [name]: value });
   };
 
   // CLOSE MODAL AND RESET STATE
   const close = () => {
-    setShow(false);
-    setNewWord(initialState);
+    handleClose();
   };
 
   // CLOSE MODAL
-  const handleClose = () => close();
+  // const handleClose = () => close();
 
   // POST WORD/SENTENCE IF isWord = true: TYPE = "W" ELSE TYPE = "S"
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (isWord) {
-        await postWord({ ...newWord, type: "W" });
+        await putWord(editWord.id, { ...editWord, type: "W" });
         getWords();
       } else {
-        await postSentence({ ...newWord, type: "S" });
+        await putSentence(editWord.id, { ...editWord, type: "S" });
         getSentences();
-        console.log(newWord);
+        console.log(editWord);
       }
       close();
     } catch (error) {
@@ -53,10 +58,10 @@ export default function ModalCrud() {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} className="textColorBlack">
+    <Modal show={open} onHide={handleClose} className="textColorBlack">
       <Modal.Header closeButton>
         <Modal.Title>
-          {isWord ? "Adding a word" : "Adding a sentence"}
+          {isWord ? "Modifying word" : "Modifying sentence"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -67,7 +72,7 @@ export default function ModalCrud() {
               type="text"
               placeholder="User"
               name="user"
-              value={newWord.user}
+              value={editWord.user}
               onChange={handleChange}
             />
           </Form.Group>
@@ -77,7 +82,7 @@ export default function ModalCrud() {
             <Form.Select
               aria-label="Floating label select example"
               name="language"
-              value={newWord.language}
+              value={editWord.language}
               onChange={handleChange}
             >
               <option value="">Click to show options</option>
@@ -92,7 +97,7 @@ export default function ModalCrud() {
               type="text"
               placeholder={isWord ? "Enter a word" : "Enter a sentence"}
               name="word"
-              value={newWord.word}
+              value={editWord.word}
               onChange={handleChange}
             />
           </Form.Group>
@@ -107,7 +112,7 @@ export default function ModalCrud() {
                   : "Enter the sentence translation"
               }
               name="translate"
-              value={newWord.translate}
+              value={editWord.translate}
               onChange={handleChange}
             />
           </Form.Group>
@@ -118,7 +123,7 @@ export default function ModalCrud() {
               type="text"
               placeholder="Enter any comment"
               name="comment"
-              value={newWord.comment}
+              value={editWord.comment}
               onChange={handleChange}
             />
           </Form.Group>

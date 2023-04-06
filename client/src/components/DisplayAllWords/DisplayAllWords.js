@@ -1,19 +1,23 @@
 import { useContext, useState } from "react";
+import { AppContext } from "../context/appContext";
 import { DataGrid } from "@mui/x-data-grid";
 import { Delete, Edit } from "@mui/icons-material/";
 import { Tooltip, IconButton } from "@mui/material";
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import { AppContext } from "../context/appContext";
 import "./DisplayAllWords.css";
 import "../../components/NavBar/NavBar";
+import ModalEdit from "../Crud/ModalEdit/ModalEdit";
 
 export default function DisplayAllWords() {
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(0);
-  const [word, setWord] = useState("");
-  const { filterWords } = useContext(AppContext);
-  const { deleteWord, getWords } = useContext(AppContext);
+  const [word, setWord] = useState({});
+  // const { filterWords } = useContext(AppContext);
+  const { show, setShow, filterWords, deleteWord, getWords } =
+    useContext(AppContext);
+  // const [show, setShow] = useContext(AppContext);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
 
   // FUNCTION TO CHANGE THE PAGE IN PAGINATION
   const handlePageChange = (params) => {
@@ -57,16 +61,10 @@ export default function DisplayAllWords() {
 
   // Function to handle edit button which shows an alert with the word and id
   const handleEdit = (word) => {
-    window.alert(
-      "Editing word: " +
-        word.row.word +
-        " Editing translation: " +
-        word.row.translate +
-        " , ID: " +
-        word.row.id
-    );
+    setWord(word.row);
+    setOpenModalEdit(true);
 
-    console.log(word);
+    // console.log("DisplayAllWords => " + word.row.word);
   };
 
   return (
@@ -99,19 +97,19 @@ export default function DisplayAllWords() {
             field: "word",
             headerName: "Word",
             editable: false,
-            width: 250,
+            width: 200,
           },
           {
             field: "translate",
             headerName: "Translate",
             editable: false,
-            width: 250,
+            width: 200,
           },
           {
             field: "comment",
             headerName: "Comment",
             editable: false,
-            width: 250,
+            width: 200,
           },
           {
             field: "edit",
@@ -145,6 +143,11 @@ export default function DisplayAllWords() {
         rowsPerPageOptions={[5, 10, 20]}
         pagination
         // checkboxSelection
+      />
+      <ModalEdit
+        open={openModalEdit}
+        handleClose={() => setOpenModalEdit(false)}
+        word={word}
       />
     </Box>
   );
