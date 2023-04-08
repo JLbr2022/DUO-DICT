@@ -4,5 +4,5 @@ import { Container } from "react-bootstrap";
 
 export default function Home() {
   // const { home } = useContext(AppContext);
-  return <Container>HOME</Container>;
+  return <Container></Container>;
 }

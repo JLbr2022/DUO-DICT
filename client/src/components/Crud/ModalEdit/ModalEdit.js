@@ -12,18 +12,27 @@ const initialState = {
   comment: "",
 };
 
-export default function ModalEdit({ word, open, handleClose }) {
+export default function ModalEdit() {
   const location = useLocation();
   const isWord = location.pathname.includes("/words/w");
   const [editWord, setEditWord] = useState(initialState);
-  const { getWords, getSentences, show, setShow, putWord, putSentence } =
-    useContext(AppContext);
+  const {
+    getWords,
+    getSentences,
+    putWord,
+    putSentence,
+    selectedWord,
+    showEdit,
+    setShowEdit,
+  } = useContext(AppContext);
 
   useEffect(() => {
-    setEditWord(word);
-  }, [word]);
+    setEditWord(selectedWord);
+  }, [selectedWord]);
 
-  if (open) console.log("ModalEdit => ", { editWord });
+  // console.log(selectedWord);
+
+  if (showEdit) console.log("ModalEdit => ", { editWord });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,12 +41,9 @@ export default function ModalEdit({ word, open, handleClose }) {
   };
 
   // CLOSE MODAL AND RESET STATE
-  const close = () => {
-    handleClose();
+  const handleClose = () => {
+    setShowEdit(false);
   };
-
-  // CLOSE MODAL
-  // const handleClose = () => close();
 
   // POST WORD/SENTENCE IF isWord = true: TYPE = "W" ELSE TYPE = "S"
   const handleSubmit = async (e) => {
@@ -51,14 +57,14 @@ export default function ModalEdit({ word, open, handleClose }) {
         getSentences();
         console.log(editWord);
       }
-      close();
+      handleClose();
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <Modal show={open} onHide={handleClose} className="textColorBlack">
+    <Modal show={showEdit} onHide={handleClose} className="textColorBlack">
       <Modal.Header closeButton>
         <Modal.Title>
           {isWord ? "Modifying word" : "Modifying sentence"}
@@ -72,7 +78,7 @@ export default function ModalEdit({ word, open, handleClose }) {
               type="text"
               placeholder="User"
               name="user"
-              value={editWord.user}
+              value={editWord.user || ""} // <== HERE ADDING SPACES TO AVOID A WARNING IN THE CONSELE
               onChange={handleChange}
             />
           </Form.Group>
@@ -82,7 +88,7 @@ export default function ModalEdit({ word, open, handleClose }) {
             <Form.Select
               aria-label="Floating label select example"
               name="language"
-              value={editWord.language}
+              value={editWord.language || ""} // <== HERE ADDING SPACES TO AVOID A WARNING IN THE CONSELE
               onChange={handleChange}
             >
               <option value="">Click to show options</option>
@@ -97,7 +103,7 @@ export default function ModalEdit({ word, open, handleClose }) {
               type="text"
               placeholder={isWord ? "Enter a word" : "Enter a sentence"}
               name="word"
-              value={editWord.word}
+              value={editWord.word || ""} // <== HERE ADDING SPACES TO AVOID A WARNING IN THE CONSELE
               onChange={handleChange}
             />
           </Form.Group>
@@ -112,7 +118,7 @@ export default function ModalEdit({ word, open, handleClose }) {
                   : "Enter the sentence translation"
               }
               name="translate"
-              value={editWord.translate}
+              value={editWord.translate || ""} // <== HERE ADDING SPACES TO AVOID A WARNING IN THE CONSELE
               onChange={handleChange}
             />
           </Form.Group>
@@ -123,7 +129,7 @@ export default function ModalEdit({ word, open, handleClose }) {
               type="text"
               placeholder="Enter any comment"
               name="comment"
-              value={editWord.comment}
+              value={editWord.comment || ""} // <== HERE ADDING SPACES TO AVOID A WARNING IN THE CONSELE
               onChange={handleChange}
             />
           </Form.Group>

@@ -8,7 +8,9 @@ import { useLocation } from "react-router-dom";
 export const useStore = () => {
   const location = useLocation();
   const [show, setShow] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
   const [words, setWords] = useState([]);
+  const [selectedWord, setSelectedWord] = useState({});
   const [filterWords, setFilterWords] = useState([]);
   const [sentences, setSentences] = useState([]);
   const [filterSentences, setFilterSentences] = useState([]);
@@ -85,6 +87,10 @@ export const useStore = () => {
     sentences,
     setShow,
     show,
+    showEdit,
+    setShowEdit,
+    selectedWord,
+    setSelectedWord,
     words,
   };
 };
