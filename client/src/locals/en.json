@@ -1,0 +1,9 @@
+{
+  "app": {
+    "title": "DUO_DICT",
+    "menu": {
+      "wordsList": "Words list",
+      "sentencesList": "Sentences list"
+    }
+  }
+}
