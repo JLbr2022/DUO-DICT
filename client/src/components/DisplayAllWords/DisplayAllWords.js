@@ -18,7 +18,7 @@ export default function DisplayAllWords() {
   // eslint-disable-next-line
   const [word, setWord] = useState({});
 
-  const { filterWords, deleteWord, getWords, setSelectedWord, setShowEdit } =
+  const { filterWords, deleteWord, setSelectedWord, setShowEdit } =
     useContext(AppContext);
 
   // FUNCTION TO CHANGE THE PAGE IN PAGINATION
@@ -49,7 +49,6 @@ export default function DisplayAllWords() {
 
     if (isDelete) {
       deleteWord(word.id);
-      getWords();
       window.alert("Word [ " + wrd + " ] was deleted!");
     } else {
       window.alert("Word [ " + wrd + " ] not deleted!");
