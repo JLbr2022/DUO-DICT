@@ -4,6 +4,9 @@
     "menu": {
       "wordsList": "Words list",
       "sentencesList": "Sentences list"
+    },
+    "search": {
+      "placeholder": "Search..."
     }
   }
 }
