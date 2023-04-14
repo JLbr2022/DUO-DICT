@@ -13,6 +13,7 @@ export const useStore = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [words, setWords] = useState([]);
   const [selectedWord, setSelectedWord] = useState({});
+  const [selectedSentence, setSelectedSentence] = useState({});
   const [filterWords, setFilterWords] = useState([]);
   const [sentences, setSentences] = useState([]);
   const [filterSentences, setFilterSentences] = useState([]);
@@ -98,6 +99,8 @@ export const useStore = () => {
     setShowEdit,
     selectedWord,
     setSelectedWord,
+    selectedSentence,
+    setSelectedSentence,
     words,
   };
 };
