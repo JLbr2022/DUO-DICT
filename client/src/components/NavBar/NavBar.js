@@ -1,40 +1,90 @@
+import * as React from "react";
 import { useContext } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
 import { AppContext } from "../context/appContext";
-import SearchEngine from "../SearchEngine/SearchEngine";
-import "./NavBar.css";
-import * as Icon from "react-bootstrap-icons";
+import { useTranslation } from "react-i18next";
+import MenuIcon from "@mui/icons-material/Menu";
+import AddIcon from "@mui/icons-material/Add";
+import { SearchComponent } from "../SearchComponent/SearchComponent";
+import { Link as RouterLink } from "react-router-dom";
+
+import {
+  Avatar,
+  AppBar,
+  Box,
+  Stack,
+  Toolbar,
+  Button,
+  IconButton,
+  Typography,
+  Grid,
+  Fab,
+} from "@mui/material";
+
+const wordsURL = "/words/w/word/asc";
+const sentencesURL = "/words/s/word/asc";
 
 export default function NavBar() {
-  const { setShow, isWord, isSentence } = useContext(AppContext);
-
+  const { t } = useTranslation();
+  const { setShow } = useContext(AppContext);
   const handleShow = () => setShow(true);
-
-  const getButtonName =
-    isWord() || isSentence() ? (
-      <Icon.PlusCircle
-        className="i-add"
-        size="2rem"
-        onClick={handleShow}
-      ></Icon.PlusCircle>
-    ) : null;
+  const navItems = [t("app.menu.wordsList"), t("app.menu.sentencesList")];
 
   return (
-    <>
-      <Navbar bg="dark" variant="dark" sticky="top" expand="lg">
-        <Container>
-          <Navbar.Brand href="/">Duo_Dict</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="/words/w/word/asc">Word list</Nav.Link>
-              <Nav.Link href="/words/s/word/asc">Sentences list</Nav.Link>
-            </Nav>
-            <SearchEngine />
-            {getButtonName}
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    </>
+    <Box>
+      <AppBar position="static">
+        <Toolbar>
+          <Grid container justifyContent="space-between" alignItems="center">
+            <Avatar sx={{ mr: 2, display: { xs: "none", sm: "flex" } }}>
+              Ddc
+            </Avatar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 2, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+
+            <Typography
+              variant="h6"
+              // noWrap
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" }, flexGrow: 1 }}
+            >
+              <h3>{t("app.title")}</h3>
+            </Typography>
+
+            <Stack
+              direction="row"
+              spacing={1}
+              sx={{
+                display: { xs: "none", sm: "block" },
+              }}
+            >
+              {navItems.map((item) => (
+                <Button
+                  to={
+                    item === t("app.menu.wordsList") ? wordsURL : sentencesURL
+                  }
+                  key={item}
+                  component={RouterLink}
+                  sx={{ color: "#fff" }}
+                >
+                  {item}
+                </Button>
+              ))}
+            </Stack>
+            <Box>
+              <SearchComponent />
+            </Box>
+          </Grid>
+          <Fab size="small" aria-label="add" onClick={handleShow}>
+            <AddIcon />
+          </Fab>
+        </Toolbar>
+      </AppBar>
+    </Box>
   );
 }

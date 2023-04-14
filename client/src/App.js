@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import Sentences from "./components/Sentences/Sentences";
-import ModalCrud from "./components/Crud/ModalCrud/ModalCrud";
+import ModalAdd from "./components/Crud/ModalAdd/ModalAdd";
 import DisplayAllWords from "./components/DisplayAllWords/DisplayAllWords";
 
 const darkTheme = createTheme({
@@ -34,7 +34,7 @@ export default function App() {
               <Route path="/words/s/word/asc" element={<Sentences />} />
             </Routes>
           </Container>
-          <ModalCrud />
+          <ModalAdd />
         </AppContext.Provider>
       </ThemeProvider>
     </Box>

@@ -1,19 +1,25 @@
 import { useContext, useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import { Delete, Edit } from "@mui/icons-material/";
-import { Tooltip, IconButton } from "@mui/material";
-import styled from "@emotion/styled";
-import { Box } from "@mui/material";
 import { AppContext } from "../context/appContext";
+import {
+  DataGrid,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
+import { Delete, Edit } from "@mui/icons-material/";
+import { Tooltip, IconButton, Box } from "@mui/material";
+import styled from "@emotion/styled";
 import "./DisplayAllWords.css";
-import "../../components/NavBar/NavBar";
+import ModalEdit from "../Crud/ModalEdit/ModalEdit";
 
 export default function DisplayAllWords() {
   const [pageSize, setPageSize] = useState(5);
   const [page, setPage] = useState(0);
-  const [word, setWord] = useState("");
-  const { filterWords } = useContext(AppContext);
-  const { deleteWord, getWords } = useContext(AppContext);
+  // eslint-disable-next-line
+  const [word, setWord] = useState({});
+
+  const { filterWords, deleteWord, setSelectedWord, setShowEdit } =
+    useContext(AppContext);
 
   // FUNCTION TO CHANGE THE PAGE IN PAGINATION
   const handlePageChange = (params) => {
@@ -43,7 +49,6 @@ export default function DisplayAllWords() {
 
     if (isDelete) {
       deleteWord(word.id);
-      getWords();
       window.alert("Word [ " + wrd + " ] was deleted!");
     } else {
       window.alert("Word [ " + wrd + " ] not deleted!");
@@ -57,23 +62,36 @@ export default function DisplayAllWords() {
 
   // Function to handle edit button which shows an alert with the word and id
   const handleEdit = (word) => {
-    window.alert(
-      "Editing word: " +
-        word.row.word +
-        " Editing translation: " +
-        word.row.translate +
-        " , ID: " +
-        word.row.id
-    );
+    setShowEdit(true);
+    setSelectedWord(word.row);
+  };
 
-    console.log(word);
+  const boxParams = {
+    height: 500,
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 4,
+    borderRadius: 2,
+    // boxShadow: 1,
   };
 
   return (
-    // <div className="containerDataGrid" height="500px" width="100%">
-    // <div className="containerDataGrid">
-    <Box justifyContent="center" alignItems="center" height="500px">
+    <Box sx={boxParams}>
       <DataGrid
+        display="flex"
+        responsive="true"
+        components={{
+          Toolbar: () => {
+            return (
+              <GridToolbarContainer sx={{ justifyContent: "flex-end" }}>
+                <GridToolbarColumnsButton />
+                <GridToolbarExport />
+              </GridToolbarContainer>
+            );
+          },
+        }}
+        marginLeft="auto"
+        marginRight="auto"
         stickyHeader="true"
         hover="true"
         rows={filterWords}
@@ -81,42 +99,52 @@ export default function DisplayAllWords() {
           {
             field: "id",
             headerName: "ID",
-            width: 60,
+            hide: true,
+            editable: false,
           },
           {
             field: "type",
             headerName: "Type",
             editable: false,
-            width: 50,
+            // width: 50,
+            // flex: 0.5,
           },
           {
             field: "language",
             headerName: "Lang",
             editable: false,
-            width: 50,
+            // width: 50,
+            // flex: 0.5,
+            hide: { xs: true, sm: true },
           },
           {
             field: "word",
             headerName: "Word",
             editable: false,
-            width: 250,
+            width: 200,
+            // flex: 1,
           },
           {
             field: "translate",
             headerName: "Translate",
             editable: false,
-            width: 250,
+            width: 200,
+            // flex: 1,
           },
           {
             field: "comment",
             headerName: "Comment",
             editable: false,
-            width: 250,
+            width: 200,
+            // flex: 1,
           },
           {
             field: "edit",
             headerName: "Edit",
             width: 50,
+            sortable: false,
+            disableColumnMenu: true,
+            // flex: 1,
             renderCell: (word) => (
               <DarkBgbTooltip title="Edit word">
                 <IconButton onClick={() => handleEdit(word)}>
@@ -129,6 +157,9 @@ export default function DisplayAllWords() {
             field: "delete",
             headerName: "Del",
             xl: 50,
+            sortable: false,
+            disableColumnMenu: true,
+            // flex: 1,
             renderCell: (word) => (
               <DarkBgbTooltip title="Delete word">
                 <IconButton onClick={() => handleDelete(word)}>
@@ -144,8 +175,8 @@ export default function DisplayAllWords() {
         onPageChange={handlePageChange}
         rowsPerPageOptions={[5, 10, 20]}
         pagination
-        // checkboxSelection
       />
+      <ModalEdit />
     </Box>
   );
 }

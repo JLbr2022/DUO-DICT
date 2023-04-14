@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
 import { AppContext } from "../../context/appContext";
-import "./ModalCrud.css";
+import "./ModalAdd.css";
+import { useLocation } from "react-router-dom";
 
 const initialState = {
   user: "José",
@@ -12,12 +12,20 @@ const initialState = {
   comment: "",
 };
 
-export default function ModalCrud() {
+export default function ModaAdd() {
   const location = useLocation();
   const isWord = location.pathname.includes("/words/w");
   const [newWord, setNewWord] = useState({ ...initialState });
-  const { getWords, postWord, show, setShow, getSentences, postSentence } =
-    useContext(AppContext);
+  const {
+    // isWord,
+    // isSentence,
+    getWords,
+    postWord,
+    show,
+    setShow,
+    getSentences,
+    postSentence,
+  } = useContext(AppContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
