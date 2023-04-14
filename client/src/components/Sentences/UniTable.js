@@ -1,6 +1,4 @@
-import { useContext, useState } from "react";
-import { AppContext } from "../context/appContext";
-import { Delete, Save } from "@mui/icons-material/";
+// import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,11 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import "react-toastify/dist/ReactToastify.css";
 
-export default function Sentences() {
-  const { filterSentences, deleteSentence, getSentence } =
-    useContext(AppContext);
+export default function UniTable() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -32,37 +27,43 @@ export default function Sentences() {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Lang</TableCell>
-              <TableCell>Sentence</TableCell>
-              <TableCell>Translation</TableCell>
-              <TableCell>Comment</TableCell>
-              <TableCell>Edit</TableCell>
-              <TableCell>Del</TableCell>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {filterSentences.map((item) => (
-              <TableRow
-                key={item.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>{item.id}</TableCell>
-                <TableCell>{item.type}</TableCell>
-                <TableCell>{item.language}</TableCell>
-                <TableCell>{item.word}</TableCell>
-                <TableCell>{item.translate}</TableCell>
-                <TableCell>{item.comment}</TableCell>
-              </TableRow>
-            ))}
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === "number"
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={filterSentences.length}
+        count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
