@@ -4,8 +4,10 @@
 import { useEffect, useState } from "react";
 import { api } from "./api";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const useStore = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -14,17 +16,22 @@ export const useStore = () => {
   const [filterWords, setFilterWords] = useState([]);
   const [sentences, setSentences] = useState([]);
   const [filterSentences, setFilterSentences] = useState([]);
-  const isWord = () => location.pathname.includes("/words/w");
-  const isSentence = () => location.pathname.includes("/words/s");
 
-  const applyFilter = (filter, _array) => {
+  const isWord = location.pathname.includes("/words/w");
+  const isSentence = location.pathname.includes("/words/s");
+
+  const applyFilter = (filter) => {
+    const _array = isWord ? words : sentences;
     const filtered = _array.filter((word) => {
       const a = word.word?.toLowerCase().includes(filter.toLowerCase());
       const b = word.translate?.toLowerCase().includes(filter.toLowerCase());
       return a || b;
     });
-    if (isWord()) setFilterWords(filtered);
-    if (isSentence()) setFilterSentences(filtered);
+    if (isWord) {
+      setFilterWords(filtered);
+    } else {
+      setFilterSentences(filtered);
+    }
   };
 
   const getWords = () => {
