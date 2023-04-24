@@ -10,7 +10,6 @@ import { Delete, Edit } from "@mui/icons-material/";
 import { Tooltip, IconButton, Box } from "@mui/material";
 import styled from "@emotion/styled";
 import "./DisplayAllWords.css";
-import ModalEdit from "../Crud/ModalEdit/ModalEdit";
 
 export default function DisplayAllWords() {
   const [pageSize, setPageSize] = useState(5);
@@ -18,8 +17,14 @@ export default function DisplayAllWords() {
   // eslint-disable-next-line
   const [word, setWord] = useState({});
 
-  const { filterWords, deleteWord, setSelectedWord, setShowEdit } =
-    useContext(AppContext);
+  const {
+    getWords,
+    filterWords,
+    deleteWord,
+    setSelectedWord,
+    showEdit,
+    setShowEdit,
+  } = useContext(AppContext);
 
   // FUNCTION TO CHANGE THE PAGE IN PAGINATION
   const handlePageChange = (params) => {
@@ -50,6 +55,7 @@ export default function DisplayAllWords() {
     if (isDelete) {
       deleteWord(word.id);
       window.alert("Word [ " + wrd + " ] was deleted!");
+      getWords();
     } else {
       window.alert("Word [ " + wrd + " ] not deleted!");
     }
@@ -72,7 +78,6 @@ export default function DisplayAllWords() {
     marginRight: "auto",
     marginTop: 4,
     borderRadius: 2,
-    // boxShadow: 1,
   };
 
   return (
@@ -176,7 +181,6 @@ export default function DisplayAllWords() {
         rowsPerPageOptions={[5, 10, 20]}
         pagination
       />
-      <ModalEdit />
     </Box>
   );
 }

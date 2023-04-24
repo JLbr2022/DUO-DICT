@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useContext } from "react";
-import { AppContext } from "../context/appContext";
 import { useTranslation } from "react-i18next";
-import MenuIcon from "@mui/icons-material/Menu";
 import AddIcon from "@mui/icons-material/Add";
+import MenuIcon from "@mui/icons-material/Menu";
 import { SearchComponent } from "../SearchComponent/SearchComponent";
+import { AppContext } from "../../context/appContext";
 import { Link as RouterLink } from "react-router-dom";
 
 import {
@@ -25,8 +25,8 @@ const sentencesURL = "/words/s/word/asc";
 
 export default function NavBar() {
   const { t } = useTranslation();
-  const { setShow } = useContext(AppContext);
-  const handleShow = () => setShow(true);
+  const { setShowAdd } = useContext(AppContext);
+  const handleShow = () => setShowAdd(true);
   const navItems = [t("app.menu.wordsList"), t("app.menu.sentencesList")];
 
   return (

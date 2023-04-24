@@ -23,14 +23,9 @@ export const api = {
     axiosInstance.post(`words`, payload).catch(console.log),
 
   // PUT Query
-  putWord: (id, payload) =>
-    axiosInstance.put(`words/${id}`, payload).catch(console.log),
-
-  putSentence: (id, payload) =>
-    axiosInstance.put(`words/${id}`, payload).catch(console.log),
+  putWord: (payload) =>
+    axiosInstance.put(`words/${payload.id}`, payload).catch(console.log),
 
   // DELETE Query
   deleteWord: (id) => axiosInstance.delete(`/words/${id}`).catch(console.log),
-
-  deleteSentence: (id) => axios.delete(`words/${id}`).catch(console.log),
 };

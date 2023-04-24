@@ -5,7 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { AppContext } from "../../context/appContext";
 import InputBase from "@mui/material/InputBase";
 
-export const SearchComponent = () => {
+export const SeverityIcon = () => {
   const { t } = useTranslation();
   const { setFilter } = useContext(AppContext);
   const handleSearch = (a) => setFilter(a.target.value);

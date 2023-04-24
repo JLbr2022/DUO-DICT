@@ -6,7 +6,35 @@
       "sentencesList": "Sentences list"
     },
     "search": {
-      "placeholder": "Search..."
+      "placeholder": "start searching..."
+    },
+    "action": {
+      "delete": {
+        "title": "Deleting ( {{word}} )",
+        "text": "Are you sure?"
+      },
+      "edit": {
+        "title": "Editing {{type}}"
+      },
+      "cancel": "cancel",
+      "confirm": "confirm",
+      "submit": "submit"
+    },
+    "helpers": {
+      "selectLanguage": "Select language",
+      "edit.word": "Edit {{type}}",
+      "translation": "Enter translation",
+      "comment": "Enter comments"
+    },
+    "labels": {
+      "language": "Language",
+      "translation": "Translation",
+      "comment": "Comment"
+    },
+    "messages": {
+      "saved": "{{type}} saved",
+      "updated": "{{type}} updated",
+      "deleted": "{{type}} deleted"
     }
   }
 }
