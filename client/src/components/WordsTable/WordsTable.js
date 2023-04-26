@@ -54,7 +54,7 @@ export const WordsTable = () => {
     Scroller: forwardRef((props, ref) => (
       <TableContainer component={Paper} {...props} ref={ref} />
     )),
-    Table: (props) => <Table {...props} />,
+    Table: (props) => <Table {...props} sx={{ tableLayout: "fixed" }} />,
     TableHead,
     TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
     TableBody: forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
@@ -91,15 +91,27 @@ export const WordsTable = () => {
         {t("app.headerTable.language")}
       </TableCell>
 
-      <TableCell>
-        {isWord ? t("app.headerTable.word") : t("app.headerTable.sentence")}
+      <TableCell sx={{ maxWidth: 200 }}>
+        <Box sx={{ padding: "1rem" }}>
+          {isWord ? t("app.headerTable.word") : t("app.headerTable.sentence")}
+        </Box>
       </TableCell>
 
-      <TableCell sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}>
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          maxWidth: 200,
+        }}
+      >
         {t("app.headerTable.translation")}
       </TableCell>
 
-      <TableCell sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}>
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          maxWidth: 200,
+        }}
+      >
         {t("app.headerTable.comment")}
       </TableCell>
       <TableCell>{t("app.headerTable.controls")}</TableCell>
@@ -108,92 +120,115 @@ export const WordsTable = () => {
 
   const rowContent = (index, item) => (
     <>
-      <TableRow>
-        <TableCell>
-          <IconButton
-            sx={{ display: { sm: "table-cell", xs: "table-cell", md: "none" } }}
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(open === index ? -1 : index)}
-          >
-            {open === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-          </IconButton>
-        </TableCell>
-
-        <TableCell
-          sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}
+      <TableCell
+        sx={{
+          display: { sm: "table-cell", xs: "table-cell", md: "none" },
+        }}
+      >
+        <IconButton
+          aria-label="expand row"
+          size="small"
+          onClick={() => setOpen(open === index ? -1 : index)}
         >
-          {item.id}
-        </TableCell>
+          {open === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+        </IconButton>
+        <Table>
+          <TableBody>
+            <TableRow>
+              <TableCell colSpan={7}>
+                <Collapse in={open === index} timeout="auto" unmountOnExit>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      backgroundColor: "rgba(0, 0, 0, 0.05)",
+                      minHeight: 36,
+                      textAlign: "center",
+                      alignItems: "center",
+                      fontSize: 18,
 
-        <TableCell
-          sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}
+                      display: { sx: "none", md: "none" },
+                      paddingBottom: 0,
+                      paddingTop: 0,
+                      border: 0,
+                    }}
+                  >
+                    EXPANDED ON index: {index} <br /> WORD: {item.word}
+                  </Box>
+                </Collapse>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableCell>
+
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          maxWidth: 50,
+        }}
+      >
+        {item.id}
+      </TableCell>
+
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          maxWidth: 50,
+        }}
+      >
+        {item.type}
+      </TableCell>
+
+      <TableCell sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}>
+        {item.language}
+      </TableCell>
+
+      <TableCell
+        sx={{
+          maxWidth: 200,
+        }}
+      >
+        {item.word}
+      </TableCell>
+
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          maxWidth: 200,
+        }}
+      >
+        {item.translate}
+      </TableCell>
+
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          maxWidth: 200,
+        }}
+      >
+        {item.comment}
+      </TableCell>
+
+      <TableCell sx={{ minWidth: 120 }}>
+        <IconButton
+          color="primary"
+          component="label"
+          onClick={() => handleEdit(item)}
         >
-          {item.type}
-        </TableCell>
-
-        <TableCell
-          sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}
+          <Save />
+        </IconButton>
+        <IconButton
+          color="error"
+          component="label"
+          onClick={() => handleDelete(item)}
         >
-          {item.language}
-        </TableCell>
-
-        <TableCell>{item.word}</TableCell>
-
-        <TableCell
-          sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}
-        >
-          {item.translate}
-        </TableCell>
-
-        <TableCell
-          sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}
-        >
-          {item.comment}
-        </TableCell>
-
-        <TableCell sx={{ minWidth: 120 }}>
-          <IconButton
-            color="primary"
-            component="label"
-            onClick={() => handleEdit(item)}
-          >
-            <Save />
-          </IconButton>
-          <IconButton
-            color="error"
-            component="label"
-            onClick={() => handleDelete(item)}
-          >
-            <Delete />
-          </IconButton>
-        </TableCell>
-      </TableRow>
-      {/* <TableRow>
-        <TableCell colSpan={7}>
-          <Collapse in={open === index} timeout="auto" unmountOnExit>
-            <Box
-              sx={{
-                width: "100%",
-                backgroundColor: "rgba(0, 0, 0, 0.05)",
-                minHeight: 36,
-                textAlign: "center",
-                alignItems: "center",
-                fontSize: 18,
-
-                display: { sx: "none", md: "none" },
-                paddingBottom: 0,
-                paddingTop: 0,
-                border: 0,
-              }}
-            >
-              EXPANDED ON index: {index} <br /> WORD: {item.word}
-            </Box>
-          </Collapse>
-        </TableCell>
-      </TableRow> */}
+          <Delete />
+        </IconButton>
+      </TableCell>
     </>
   );
+  {
+  }
 
   return (
     <>

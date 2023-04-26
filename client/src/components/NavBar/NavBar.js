@@ -1,13 +1,11 @@
 import * as React from "react";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import MenuIcon from "@mui/icons-material/Menu";
 import { SearchComponent } from "../SearchComponent/SearchComponent";
 import { AppContext } from "../../context/appContext";
-import {
-  Link as RouterLink
-} from 'react-router-dom';
+import { Link as RouterLink } from "react-router-dom";
 
 import {
   Avatar,
@@ -27,9 +25,10 @@ const sentencesURL = "/words/s/word/asc";
 
 export default function NavBar() {
   const { t } = useTranslation();
-  const { setShowAdd } = useContext(AppContext);
+  const { setShowAdd, isWord, isSentence } = useContext(AppContext);
   const handleShow = () => setShowAdd(true);
   const navItems = [t("app.menu.wordsList"), t("app.menu.sentencesList")];
+  const showAddButton = isWord || isSentence;
 
   return (
     <Box>
@@ -82,9 +81,11 @@ export default function NavBar() {
               <SearchComponent />
             </Box>
           </Grid>
-          <Fab size="small" aria-label="add" onClick={handleShow}>
-            <AddIcon />
-          </Fab>
+          {showAddButton && (
+            <Fab size="small" aria-label="add" onClick={handleShow}>
+              <AddIcon />
+            </Fab>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
