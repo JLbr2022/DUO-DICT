@@ -7,7 +7,7 @@ import { Container } from "@mui/material";
 import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
 import { Toast } from "./components/Toast/Toast";
-import { WordsTable } from "./components/WordTable/WordsTable";
+import { WordsTable } from "./components/WordsTable/WordsTable";
 import { AppContext } from "./context/appContext";
 import { ModalAdd } from "./components/Crud/ModalAdd/ModalAdd";
 
@@ -19,7 +19,6 @@ const darkTheme = createTheme({
 
 export default function App() {
   const store = useStore();
-
   return (
     <Box flex justifyContent="center" alignItems="center" width="100%">
       <ThemeProvider theme={darkTheme}>

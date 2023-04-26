@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { Snackbar } from "@mui/material";
 import { AppContext } from "../../context/appContext";
 import { Close } from "@mui/icons-material";
-import { SeverityIcon } from "../SeverityIcon/SeverityIcon";
+import { SeverityIcon } from "../SeverityIcon/SeveriryIcon";
 
 export const Toast = () => {
   const { toast, clearToast } = useContext(AppContext);

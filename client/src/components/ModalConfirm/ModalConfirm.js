@@ -8,14 +8,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { AppContext } from "../../context/appContext";
 import { useTranslation } from "react-i18next";
-import { SeverityIcon } from "../SeverityIcon/SeverityIcon";
+import { SeverityIcon } from "../SeverityIcon/SeveriryIcon";
 
 export const ModalConfirm = ({ callBack }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const { confirm, clearConfirm } = useContext(AppContext);
-  const open = confirm.text !== undefined;
-  const handleClose = () => clearConfirm();
-
+  const open = confirm.text !== undefined
+  const handleClose = () => clearConfirm()
+  
   const handleConfirm = () => {
     clearConfirm();
     if (callBack) callBack();
@@ -25,7 +25,7 @@ export const ModalConfirm = ({ callBack }) => {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>{confirm.title}</DialogTitle>
       <DialogContent>
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex"}}>
           <SeverityIcon icon={confirm.severity} />
           <DialogContentText>{confirm.text}</DialogContentText>
         </Box>

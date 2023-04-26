@@ -17,11 +17,16 @@ const initialState = {
   word: "",
   translate: "",
   comment: "",
-};
+}
 
 export const ModalAdd = () => {
   const { t } = useTranslation();
-  const { showAdd, setShowAdd, postWord, isWord } = useContext(AppContext);
+  const {
+    showAdd,
+    setShowAdd,
+    postWord,
+    isWord,
+  } = useContext(AppContext);
   const [editWord, setEditWord] = useState({ ...initialState });
   const open = showAdd;
   const type = isWord ? "word" : "sentence";
@@ -113,3 +118,4 @@ export const ModalAdd = () => {
     </Dialog>
   );
 };
+

@@ -12,20 +12,14 @@ const axiosInstance = axios.create({
 export const api = {
   // GETS Queries
   getWords: () => axios.get(`${wordsPath}`).catch(console.log),
-
   getSentences: () => axios.get(`${sentencesPath}`).catch(console.log),
-
   // POST Queries
   postWord: (payload) =>
     axiosInstance.post(`words`, payload).catch(console.log),
-
-  postSentence: (payload) =>
-    axiosInstance.post(`words`, payload).catch(console.log),
-
   // PUT Query
   putWord: (payload) =>
     axiosInstance.put(`words/${payload.id}`, payload).catch(console.log),
-
   // DELETE Query
   deleteWord: (id) => axiosInstance.delete(`/words/${id}`).catch(console.log),
+
 };

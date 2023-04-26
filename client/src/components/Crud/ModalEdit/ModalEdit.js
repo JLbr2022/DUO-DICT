@@ -13,8 +13,13 @@ import { languages } from "../../../context/userStore";
 
 export const ModalEdit = () => {
   const { t } = useTranslation();
-  const { showEdit, setShowEdit, selectedWord, putWord, isWord } =
-    useContext(AppContext);
+  const {
+    showEdit,
+    setShowEdit,
+    selectedWord,
+    putWord,
+    isWord,
+  } = useContext(AppContext);
   const [editWord, setEditWord] = useState({ ...selectedWord });
   const open = showEdit;
   const type = isWord ? "word" : "sentence";

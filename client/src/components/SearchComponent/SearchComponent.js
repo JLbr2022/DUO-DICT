@@ -11,7 +11,7 @@ export const SearchComponent = () => {
   const handleSearch = (a) => setFilter(a.target.value);
 
   return (
-    <Box sx={{ ml: 1 }}>
+    <Box sx={{ ml: 1}}>
       <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
         <SearchIcon />
       </IconButton>

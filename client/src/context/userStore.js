@@ -59,7 +59,8 @@ export const useStore = () => {
   };
 
   const postWord = (payload) => {
-    api.postWord(payload).then(() => {
+    const type = isWord ? "W" : "S";
+    api.postWord({ ...payload, type }).then(() => {
       isWord ? getWords() : getSentences();
       setToast({
         severity: Severity.success,
@@ -67,6 +68,7 @@ export const useStore = () => {
           type: isWord ? "Word" : "Sentence",
         }),
       });
+      setLastUpdate(new Date().toISOString());
     });
   };
 

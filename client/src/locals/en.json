@@ -35,6 +35,16 @@
       "saved": "{{type}} saved",
       "updated": "{{type}} updated",
       "deleted": "{{type}} deleted"
+    },
+    "headerTable": {
+      "id": "ID",
+      "type": "Type",
+      "language": "LANGUAJE",
+      "word": "WORD",
+      "sentence": "SENTENCE",
+      "translation": "TRANSLATION",
+      "comment": "COMMENT",
+      "controls": "CONTROLS"
     }
   }
 }
