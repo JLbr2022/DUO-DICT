@@ -20,9 +20,40 @@ import {
   Fab,
   Link,
 } from "@mui/material";
+import styled from "@emotion/styled";
 
 const wordsURL = "/words/w/word/asc";
 const sentencesURL = "/words/s/word/asc";
+
+const StyledComponents = {
+  StIconHamberger: styled(IconButton).attrs(({ theme }) => ({
+    size: "large",
+    edge: "start",
+    color: "inherit",
+    sx: {
+      display: { xs: "block", sm: "block", md: "none" },
+      mr: 2,
+    },
+  })),
+
+  StAvatar: styled(Avatar)(({ theme }) => ({
+    color: "#fff",
+    textDecoration: "none",
+    backgroundColor: "#000",
+    sx: {
+      display: { xs: "block", sm: "block", md: "none" },
+      textDecoration: "none",
+    },
+  })),
+  StTitle: styled(Button)(({ theme }) => ({
+    color: "#fff",
+    marginRight: "auto",
+    sx: {
+      display: { xs: "none", sm: "none", md: "block" },
+      textDecoration: "none",
+    },
+  })),
+};
 
 export default function NavBar() {
   const { t } = useTranslation();
@@ -31,67 +62,56 @@ export default function NavBar() {
   const navItems = [t("app.menu.wordsList"), t("app.menu.sentencesList")];
   const showAddButton = isWord || isSentence;
 
+  const NavigationLinks = [
+    { label: t("app.menu.wordsList"), to: wordsURL },
+    { label: t("app.menu.sentencesList"), to: sentencesURL },
+  ];
+
   return (
     <Box>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
-            <Avatar
-              component={RouterLink}
-              to="/"
-              sx={{
-                mr: 2,
-                display: { xs: "none", sm: "none", md: "flex" },
-                textDecoration: "none",
-              }}
-            >
-              Ddc
-            </Avatar>
-
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
+            <StyledComponents.StIconHamberger // MENU HAMBURGER ICON
               aria-label="open drawer"
-              sx={{
-                mr: 2,
-                display: { sx: "none", sm: "flex", md: "none" },
-              }}
             >
               <MenuIcon />
-            </IconButton>
+            </StyledComponents.StIconHamberger>
 
-            <Typography
+            <StyledComponents.StAvatar // AVATAR LOGO
               component={RouterLink}
               to="/"
-              variant="h6"
-              sx={{
-                display: { xs: "none", sm: "none", md: "block" },
-                flexGrow: 1,
-                textDecoration: "none",
-              }}
             >
-              <h3 sx={{ textDecoration: "none" }}>{t("app.title")}</h3>
-            </Typography>
+              DD
+            </StyledComponents.StAvatar>
 
-            <Stack
+            <StyledComponents.StTitle // TITLE
+              component={RouterLink}
+              to="/"
+            >
+              {t("app.title")}
+            </StyledComponents.StTitle>
+
+            <Stack // NAVIGATION LINKS
               direction="row"
-              spacing={1}
+              spacing={4}
               sx={{
                 display: { xs: "none", sm: "none", md: "table-cell" },
               }}
             >
-              {navItems.map((item) => (
-                <Button
-                  to={
-                    item === t("app.menu.wordsList") ? wordsURL : sentencesURL
-                  }
-                  key={item}
+              {NavigationLinks.map((link) => (
+                <Link
+                  key={link.label}
                   component={RouterLink}
-                  sx={{ color: "#fff" }}
+                  to={link.to}
+                  sx={{
+                    display: "row",
+                    color: "#fff",
+                    textDecoration: "none",
+                  }}
                 >
-                  {item}
-                </Button>
+                  {link.label}
+                </Link>
               ))}
             </Stack>
             <Box>
