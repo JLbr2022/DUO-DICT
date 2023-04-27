@@ -9,6 +9,7 @@ import { SearchComponent } from "../SearchComponent/SearchComponent";
 import { AppContext } from "../../context/appContext";
 import { Link as RouterLink } from "react-router-dom";
 import styled from "@emotion/styled";
+import DdAvatar from "../../images/parrotLogo.svg";
 
 import {
   Avatar,
@@ -36,16 +37,25 @@ const StyledComponents = {
     color: "#fff",
     textDecoration: "none",
     backgroundColor: "#000",
-    border: "2px solid white",
+    border: "2px solid lightgreen",
     borderLeft: "none",
     borderRight: "none",
-    marginRight: 10,
+    justifyContent: "center",
+    alignItems: "center",
   })),
   StTitle: styled(Button)(({ theme }) => ({
     color: "#fff",
     marginRight: "auto",
+    marginLeft: 10,
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Jokerman",
   })),
 };
+
+const Logo = () => (
+  <img alt="DuoDict Logo" height={30} width={30} src={DdAvatar} />
+);
 
 const LinksNavBar = ({ navigationLinks }) => (
   <>
@@ -102,8 +112,15 @@ export default function NavBar() {
             <StyledComponents.StAvatar // AVATAR LOGO
               component={RouterLink}
               to="/"
+              alt="DuoDict Logo"
+              sx={{
+                width: 40,
+                height: 40,
+                display: { xs: "none", sm: "block", md: "flex" },
+              }}
+              size="large"
             >
-              DD
+              <Logo />
             </StyledComponents.StAvatar>
 
             <StyledComponents.StTitle // TITLE

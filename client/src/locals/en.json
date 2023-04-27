@@ -6,7 +6,8 @@
       "sentencesList": "Sentences list"
     },
     "search": {
-      "placeholder": "start searching..."
+      "placeholder": "Write something...",
+      "label": "Search for..."
     },
     "action": {
       "delete": {
