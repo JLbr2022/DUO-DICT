@@ -50,7 +50,6 @@ export default function NavBar() {
 
             <Typography
               variant="h6"
-              // noWrap
               component="div"
               sx={{ display: { xs: "none", sm: "block" }, flexGrow: 1 }}
             >

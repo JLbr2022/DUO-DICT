@@ -26,6 +26,7 @@ import { Severity } from "../../context/userStore";
 
 export const WordsTable = () => {
   const [open, setOpen] = useState(-1);
+  const [openId, setOpenId] = useState(-1);
   const { t } = useTranslation();
   const {
     filteredDictionary,
@@ -56,8 +57,45 @@ export const WordsTable = () => {
     )),
     Table: (props) => <Table {...props} sx={{ tableLayout: "fixed" }} />,
     TableHead,
-    TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
+    TableRow: ({ item: item, ...props }) => (
+      <MyTableRow item={item} props={props} />
+    ),
     TableBody: forwardRef((props, ref) => <TableBody {...props} ref={ref} />),
+  };
+
+  const MyTableRow = ({ item, props }) => {
+    const index = props["data-index"];
+    if (open === index) {
+      return (
+        <>
+          <TableRow {...props} />
+          <TableRow>
+            <TableCell
+              colSpan={3}
+              sx={{ paddingLeft: "2rem", paddingRight: "2rem" }}
+            >
+              <TableContainer component={Paper} elevation={4}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>translate</TableCell>
+                      <TableCell>comment</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>{item.translate}</TableCell>
+                      <TableCell>{item.comment}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </TableCell>
+          </TableRow>
+        </>
+      );
+    }
+    return <TableRow {...props} />;
   };
 
   const handleDelete = (word) => {
@@ -71,7 +109,7 @@ export const WordsTable = () => {
   };
 
   const headerContent = () => (
-    <TableRow>
+    <TableRow sx={{ p: 2 }}>
       <TableCell
         sx={{
           display: { sm: "table-cell", xs: "table-cell", md: "none" },
@@ -118,117 +156,105 @@ export const WordsTable = () => {
     </TableRow>
   );
 
-  const rowContent = (index, item) => (
-    <>
-      <TableCell
-        sx={{
-          display: { sm: "table-cell", xs: "table-cell", md: "none" },
-        }}
-      >
-        <IconButton
-          aria-label="expand row"
-          size="small"
-          onClick={() => setOpen(open === index ? -1 : index)}
+  const rowContent = (index, item) => {
+    const currentOpen = item.id === openId && open > -1;
+    const borderBottom = currentOpen
+      ? "none"
+      : "1px solid rgba(81, 81, 81, 1);";
+    return (
+      <>
+        <TableCell
+          sx={{
+            display: {
+              sm: "table-cell",
+              xs: "table-cell",
+              md: "none",
+              borderBottom,
+            },
+          }}
         >
-          {open === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-        </IconButton>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell colSpan={7}>
-                <Collapse in={open === index} timeout="auto" unmountOnExit>
-                  <Box
-                    sx={{
-                      width: "100%",
-                      backgroundColor: "rgba(0, 0, 0, 0.05)",
-                      minHeight: 36,
-                      textAlign: "center",
-                      alignItems: "center",
-                      fontSize: 18,
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => {
+              setOpen(open === index ? -1 : index);
+              setOpenId(item.id);
+            }}
+          >
+            {open === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          </IconButton>
+        </TableCell>
 
-                      display: { sx: "none", md: "none" },
-                      paddingBottom: 0,
-                      paddingTop: 0,
-                      border: 0,
-                    }}
-                  >
-                    EXPANDED ON index: {index} <br /> WORD: {item.word}
-                  </Box>
-                </Collapse>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableCell>
-
-      <TableCell
-        sx={{
-          display: { sm: "none", xs: "none", md: "table-cell" },
-          maxWidth: 50,
-        }}
-      >
-        {item.id}
-      </TableCell>
-
-      <TableCell
-        sx={{
-          display: { sm: "none", xs: "none", md: "table-cell" },
-          maxWidth: 50,
-        }}
-      >
-        {item.type}
-      </TableCell>
-
-      <TableCell sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}>
-        {item.language}
-      </TableCell>
-
-      <TableCell
-        sx={{
-          maxWidth: 200,
-        }}
-      >
-        {item.word}
-      </TableCell>
-
-      <TableCell
-        sx={{
-          display: { sm: "none", xs: "none", md: "table-cell" },
-          maxWidth: 200,
-        }}
-      >
-        {item.translate}
-      </TableCell>
-
-      <TableCell
-        sx={{
-          display: { sm: "none", xs: "none", md: "table-cell" },
-          maxWidth: 200,
-        }}
-      >
-        {item.comment}
-      </TableCell>
-
-      <TableCell sx={{ minWidth: 120 }}>
-        <IconButton
-          color="primary"
-          component="label"
-          onClick={() => handleEdit(item)}
+        <TableCell
+          sx={{
+            display: { sm: "none", xs: "none", md: "table-cell" },
+            maxWidth: 50,
+          }}
         >
-          <Save />
-        </IconButton>
-        <IconButton
-          color="error"
-          component="label"
-          onClick={() => handleDelete(item)}
+          {item.id}
+        </TableCell>
+
+        <TableCell
+          sx={{
+            display: { sm: "none", xs: "none", md: "table-cell" },
+            maxWidth: 50,
+          }}
         >
-          <Delete />
-        </IconButton>
-      </TableCell>
-    </>
-  );
-  {
-  }
+          {item.type}
+        </TableCell>
+
+        <TableCell
+          sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}
+        >
+          {item.language}
+        </TableCell>
+
+        <TableCell
+          sx={{
+            maxWidth: 200,
+            borderBottom,
+          }}
+        >
+          {item.word}
+        </TableCell>
+
+        <TableCell
+          sx={{
+            display: { sm: "none", xs: "none", md: "table-cell" },
+            maxWidth: 200,
+          }}
+        >
+          {item.translate}
+        </TableCell>
+
+        <TableCell
+          sx={{
+            display: { sm: "none", xs: "none", md: "table-cell" },
+            maxWidth: 200,
+          }}
+        >
+          {item.comment}
+        </TableCell>
+
+        <TableCell sx={{ minWidth: 120, borderBottom }}>
+          <IconButton
+            color="primary"
+            component="label"
+            onClick={() => handleEdit(item)}
+          >
+            <Save />
+          </IconButton>
+          <IconButton
+            color="error"
+            component="label"
+            onClick={() => handleDelete(item)}
+          >
+            <Delete />
+          </IconButton>
+        </TableCell>
+      </>
+    );
+  };
 
   return (
     <>
