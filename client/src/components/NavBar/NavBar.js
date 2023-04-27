@@ -95,8 +95,9 @@ export default function NavBar() {
                 display: { xs: "block", sm: "block", md: "none" },
                 mr: 1.5,
               }}
+              onClick={() => setOpenDrawer(true)}
             >
-              <MenuIcon onClick={() => setOpenDrawer(true)} />
+              <MenuIcon />
             </IconButton>
 
             <StyledComponents.StAvatar // AVATAR LOGO
@@ -152,16 +153,18 @@ export default function NavBar() {
         onClose={() => setOpenDrawer(false)}
       >
         <Stack>
-          <IconButton sx={{ justifyContent: "flex-end" }}>
-            <ChevronLeft onClick={() => setOpenDrawer(false)} />
+          <IconButton
+            onClick={() => setOpenDrawer(false)}
+            sx={{ justifyContent: "flex-end" }}
+          >
+            <ChevronLeft />
           </IconButton>
         </Stack>
         <Divider />
         <List>
           {NavigationLinks.map((link) => (
-            <ListItem>
+            <ListItem key={link.label}>
               <Link
-                key={link.label}
                 component={RouterLink}
                 to={link.to}
                 sx={{
