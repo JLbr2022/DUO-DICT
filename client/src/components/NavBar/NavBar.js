@@ -32,15 +32,6 @@ const wordsURL = "/words/w/word/asc";
 const sentencesURL = "/words/s/word/asc";
 
 const StyledComponents = {
-  StIconHamberger: styled(IconButton)(({ theme }) => ({
-    size: "large",
-    edge: "start",
-    color: "inherit",
-    sx: {
-      display: { xs: "block", sm: "block", md: "none" },
-    },
-  })),
-
   StAvatar: styled(Avatar)(({ theme }) => ({
     color: "#fff",
     textDecoration: "none",
@@ -49,19 +40,32 @@ const StyledComponents = {
     borderLeft: "none",
     borderRight: "none",
     marginRight: 10,
-    sx: {
-      display: { xs: "block", sm: "block", md: "none" },
-    },
   })),
   StTitle: styled(Button)(({ theme }) => ({
     color: "#fff",
     marginRight: "auto",
-    sx: {
-      display: { xs: "none", sm: "none", md: "block" },
-      textDecoration: "none",
-    },
   })),
 };
+
+const LinksNavBar = ({ navigationLinks }) => (
+  <>
+    {navigationLinks.map((link) => (
+      <ListItem key={link.label}>
+        <Link
+          component={RouterLink}
+          to={link.to}
+          sx={{
+            display: "row",
+            color: "#fff",
+            textDecoration: "none",
+          }}
+        >
+          {link.label}
+        </Link>
+      </ListItem>
+    ))}
+  </>
+);
 
 export default function NavBar() {
   const { t } = useTranslation();
@@ -71,7 +75,7 @@ export default function NavBar() {
   const showAddButton = isWord || isSentence;
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const NavigationLinks = [
+  const navigationLinks = [
     { label: t("app.menu.wordsList"), to: wordsURL },
     { label: t("app.menu.sentencesList"), to: sentencesURL },
   ];
@@ -81,11 +85,6 @@ export default function NavBar() {
       <AppBar position="sticky">
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
-            {/* <StyledComponents.StIconHamberger // MENU HAMBURGER ICON
-              aria-label="open drawer"
-            >
-              <MenuIcon />
-            </StyledComponents.StIconHamberger> */}
             <IconButton
               size="large"
               edge="start"
@@ -110,35 +109,32 @@ export default function NavBar() {
             <StyledComponents.StTitle // TITLE
               component={RouterLink}
               to="/"
+              sx={{
+                display: { xs: "none", sm: "none", md: "block" },
+                textDecoration: "none",
+              }}
             >
               {t("app.title")}
             </StyledComponents.StTitle>
 
-            <Stack // NAVIGATION LINKS
-              direction="row"
+            <List // NAVIGATION LINKS
               spacing={4}
               sx={{
-                display: { xs: "none", sm: "none", md: "table-cell" },
+                display: {
+                  xs: "none",
+                  sm: "none",
+                  md: "flex",
+                  width: "300px",
+                },
               }}
             >
-              {NavigationLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  component={RouterLink}
-                  to={link.to}
-                  sx={{
-                    display: "row",
-                    color: "#fff",
-                    textDecoration: "none",
-                  }}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </Stack>
-            <Box>
-              <SearchComponent />
-            </Box>
+              <LinksNavBar navigationLinks={navigationLinks} />
+            </List>
+            {!showAddButton || (
+              <Box>
+                <SearchComponent />
+              </Box>
+            )}
           </Grid>
           {showAddButton && (
             <Fab size="small" aria-label="add" onClick={handleShow}>
@@ -162,21 +158,7 @@ export default function NavBar() {
         </Stack>
         <Divider />
         <List>
-          {NavigationLinks.map((link) => (
-            <ListItem key={link.label}>
-              <Link
-                component={RouterLink}
-                to={link.to}
-                sx={{
-                  display: "row",
-                  color: "#fff",
-                  textDecoration: "none",
-                }}
-              >
-                {link.label}
-              </Link>
-            </ListItem>
-          ))}
+          <LinksNavBar navigationLinks={navigationLinks} />
         </List>
       </SwipeableDrawer>
     </Box>

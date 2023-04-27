@@ -17,16 +17,11 @@ const initialState = {
   word: "",
   translate: "",
   comment: "",
-}
+};
 
 export const ModalAdd = () => {
   const { t } = useTranslation();
-  const {
-    showAdd,
-    setShowAdd,
-    postWord,
-    isWord,
-  } = useContext(AppContext);
+  const { showAdd, setShowAdd, postWord, isWord } = useContext(AppContext);
   const [editWord, setEditWord] = useState({ ...initialState });
   const open = showAdd;
   const type = isWord ? "word" : "sentence";
@@ -48,7 +43,7 @@ export const ModalAdd = () => {
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
       <DialogTitle>{t("app.action.edit.title", { type })}</DialogTitle>
-      <DialogContent fullWidth>
+      <DialogContent>
         <Box
           component="form"
           sx={{
@@ -118,4 +113,3 @@ export const ModalAdd = () => {
     </Dialog>
   );
 };
-
