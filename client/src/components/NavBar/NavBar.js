@@ -18,6 +18,7 @@ import {
   Typography,
   Grid,
   Fab,
+  Link,
 } from "@mui/material";
 
 const wordsURL = "/words/w/word/asc";
@@ -35,32 +36,49 @@ export default function NavBar() {
       <AppBar position="static">
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
-            <Avatar sx={{ mr: 2, display: { xs: "none", sm: "flex" } }}>
+            <Avatar
+              component={RouterLink}
+              to="/"
+              sx={{
+                mr: 2,
+                display: { xs: "none", sm: "none", md: "flex" },
+                textDecoration: "none",
+              }}
+            >
               Ddc
             </Avatar>
+
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              sx={{ mr: 2, display: { sm: "none" } }}
+              sx={{
+                mr: 2,
+                display: { sx: "none", sm: "flex", md: "none" },
+              }}
             >
               <MenuIcon />
             </IconButton>
 
             <Typography
+              component={RouterLink}
+              to="/"
               variant="h6"
-              component="div"
-              sx={{ display: { xs: "none", sm: "block" }, flexGrow: 1 }}
+              sx={{
+                display: { xs: "none", sm: "none", md: "block" },
+                flexGrow: 1,
+                textDecoration: "none",
+              }}
             >
-              <h3>{t("app.title")}</h3>
+              <h3 sx={{ textDecoration: "none" }}>{t("app.title")}</h3>
             </Typography>
 
             <Stack
               direction="row"
               spacing={1}
               sx={{
-                display: { xs: "none", sm: "block" },
+                display: { xs: "none", sm: "none", md: "table-cell" },
               }}
             >
               {navItems.map((item) => (
