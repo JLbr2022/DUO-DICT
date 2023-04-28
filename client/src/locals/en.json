@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "DUO_DICT",
+    "title": "Duo Dict",
     "menu": {
       "wordsList": "Words list",
       "sentencesList": "Sentences list"
@@ -16,6 +16,9 @@
       },
       "edit": {
         "title": "Editing {{type}}"
+      },
+      "add": {
+        "title": "Adding {{type}}"
       },
       "cancel": "cancel",
       "confirm": "confirm",
