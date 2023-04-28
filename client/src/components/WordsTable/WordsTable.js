@@ -5,6 +5,7 @@ import {
   Save,
   KeyboardArrowDown,
   KeyboardArrowUp,
+  TableRows,
 } from "@mui/icons-material";
 import {
   TableCell,
@@ -14,7 +15,6 @@ import {
   TableContainer,
   TableHead,
   IconButton,
-  Collapse,
   Box,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
@@ -38,11 +38,13 @@ export const WordsTable = () => {
     isWord,
   } = useContext(AppContext);
 
+  // Function to handle Edit and show Edit Modal
   const handleEdit = (word) => {
     setSelectedWord(word);
     setShowEdit(true);
   };
 
+  // Function to Delete and show Toast
   const doDelete = () => {
     deleteWord();
     setToast({
@@ -51,6 +53,18 @@ export const WordsTable = () => {
     });
   };
 
+  // Function to handle Delete and show Confirm Modal
+  const handleDelete = (word) => {
+    setSelectedWord(word);
+    setConfirm({
+      title: t("app.action.delete.title", { word: word.word }),
+      text: t("app.action.delete.text"),
+      callback: doDelete,
+      severity: Severity.info,
+    });
+  };
+
+  // Virtuoso Component used to render the table and improve performance
   const VirtuosoTableComponents = {
     Scroller: forwardRef((props, ref) => (
       <TableContainer component={Paper} {...props} ref={ref} />
@@ -98,38 +112,44 @@ export const WordsTable = () => {
     return <TableRow {...props} />;
   };
 
-  const handleDelete = (word) => {
-    setSelectedWord(word);
-    setConfirm({
-      title: t("app.action.delete.title", { word: word.word }),
-      text: t("app.action.delete.text"),
-      callback: doDelete,
-      severity: Severity.info,
-    });
-  };
-
   const headerContent = () => (
-    <TableRow sx={{ p: 2 }}>
+    <TableRow>
       <TableCell
         sx={{
           display: { sm: "table-cell", xs: "table-cell", md: "none" },
+          backgroundColor: "#000",
         }}
       >
         **
       </TableCell>
 
-      <TableCell sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}>
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          backgroundColor: "#000",
+        }}
+      >
         {t("app.headerTable.id")}
       </TableCell>
 
-      <TableCell sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}>
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          backgroundColor: "#000",
+        }}
+      >
         {t("app.headerTable.type")}
       </TableCell>
-      <TableCell sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}>
+      <TableCell
+        sx={{
+          display: { sm: "none", xs: "none", md: "table-cell" },
+          backgroundColor: "#000",
+        }}
+      >
         {t("app.headerTable.language")}
       </TableCell>
 
-      <TableCell sx={{ maxWidth: 200 }}>
+      <TableCell sx={{ maxWidth: 200, backgroundColor: "#000" }}>
         <Box sx={{ padding: "1rem" }}>
           {isWord ? t("app.headerTable.word") : t("app.headerTable.sentence")}
         </Box>
@@ -138,6 +158,7 @@ export const WordsTable = () => {
       <TableCell
         sx={{
           display: { sm: "none", xs: "none", md: "table-cell" },
+          backgroundColor: "#000",
           maxWidth: 200,
         }}
       >
@@ -147,12 +168,15 @@ export const WordsTable = () => {
       <TableCell
         sx={{
           display: { sm: "none", xs: "none", md: "table-cell" },
+          backgroundColor: "#000",
           maxWidth: 200,
         }}
       >
         {t("app.headerTable.comment")}
       </TableCell>
-      <TableCell>{t("app.headerTable.controls")}</TableCell>
+      <TableCell sx={{ backgroundColor: "#000" }}>
+        {t("app.headerTable.controls")}
+      </TableCell>
     </TableRow>
   );
 
@@ -263,7 +287,9 @@ export const WordsTable = () => {
         components={VirtuosoTableComponents}
         fixedHeaderContent={headerContent}
         itemContent={rowContent}
-        style={{ height: "calc(100vh - 100px)" }}
+        style={{
+          height: "calc(100vh - 100px)",
+        }}
       />
       <ModalEdit />
       <ModalConfirm callBack={doDelete} />
