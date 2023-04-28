@@ -97,11 +97,11 @@ export default function NavBar() {
           <Grid container justifyContent="space-between" alignItems="center">
             <IconButton
               size="large"
-              edge="start"
+              // edge="start"
               color="inherit"
               aria-label="open drawer"
               sx={{
-                display: { xs: "block", sm: "block", md: "none" },
+                display: { xs: "block", sm: "flex", md: "none" },
                 mr: 1.5,
               }}
               onClick={() => setOpenDrawer(true)}
@@ -116,7 +116,7 @@ export default function NavBar() {
               sx={{
                 width: 40,
                 height: 40,
-                display: { xs: "none", sm: "block", md: "flex" },
+                display: { xs: "none", sm: "flex", md: "flex" },
               }}
               size="large"
             >

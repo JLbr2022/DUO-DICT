@@ -42,12 +42,13 @@ export const ModalAdd = () => {
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
-      <DialogTitle>{t("app.action.edit.title", { type })}</DialogTitle>
+      <DialogTitle>{t("app.action.add.title", { type })}</DialogTitle>
       <DialogContent>
         <Box
           component="form"
           sx={{
-            display: "grid",
+            display: "flex",
+            flexDirection: "column",
             "& .MuiTextField-root": { m: 1 },
           }}
           noValidate
