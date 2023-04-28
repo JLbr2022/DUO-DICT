@@ -10,6 +10,7 @@ import { Toast } from "./components/Toast/Toast";
 import { WordsTable } from "./components/WordsTable/WordsTable";
 import { AppContext } from "./context/appContext";
 import { ModalAdd } from "./components/Crud/ModalAdd/ModalAdd";
+import { Footer } from "./components/Footer/Footer";
 
 const darkTheme = createTheme({
   palette: {
@@ -34,6 +35,7 @@ export default function App() {
           </Container>
           <ModalAdd />
           <Toast />
+          <Footer />
         </AppContext.Provider>
       </ThemeProvider>
     </Box>

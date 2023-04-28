@@ -78,7 +78,7 @@ const LinksNavBar = ({ navigationLinks }) => (
 );
 
 export default function NavBar() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { setShowAdd, isWord, isSentence } = useContext(AppContext);
   const handleShow = () => setShowAdd(true);
   const navItems = [t("app.menu.wordsList"), t("app.menu.sentencesList")];
