@@ -5,7 +5,8 @@ import { FormControl, MenuItem, Select } from "@mui/material";
 
 export function Footer() {
   const { i18n } = useTranslation();
-  const [language, setLanguage] = useState("en");
+  const storedLang = localStorage.getItem("lang"); // Get stored language
+  const [language, setLanguage] = useState(storedLang || "en"); // Set language
 
   function handleLanguage(event) {
     const lang = event.target.value;

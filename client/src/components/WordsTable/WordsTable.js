@@ -119,11 +119,9 @@ export const WordsTable = () => {
           display: { sm: "table-cell", xs: "table-cell", md: "none" },
           backgroundColor: "#000",
         }}
-      >
-        **
-      </TableCell>
+      />
 
-      <TableCell
+      {/* <TableCell
         sx={{
           display: { sm: "none", xs: "none", md: "table-cell" },
           backgroundColor: "#000",
@@ -139,7 +137,8 @@ export const WordsTable = () => {
         }}
       >
         {t("app.headerTable.type")}
-      </TableCell>
+      </TableCell> */}
+
       <TableCell
         sx={{
           display: { sm: "none", xs: "none", md: "table-cell" },
@@ -209,7 +208,7 @@ export const WordsTable = () => {
           </IconButton>
         </TableCell>
 
-        <TableCell
+        {/* <TableCell
           sx={{
             display: { sm: "none", xs: "none", md: "table-cell" },
             maxWidth: 50,
@@ -225,7 +224,7 @@ export const WordsTable = () => {
           }}
         >
           {item.type}
-        </TableCell>
+        </TableCell> */}
 
         <TableCell
           sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}
