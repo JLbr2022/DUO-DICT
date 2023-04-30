@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { FormControl, MenuItem, Select } from "@mui/material";
+import { Margin } from "@mui/icons-material";
 
 export function Footer() {
   const { i18n } = useTranslation();
   const storedLang = localStorage.getItem("lang"); // Get stored language
   const [language, setLanguage] = useState(storedLang || "en"); // Set language
 
+  // Function to handle language change
   function handleLanguage(event) {
     const lang = event.target.value;
     i18n.changeLanguage(lang).then(() => {
@@ -30,7 +32,12 @@ export function Footer() {
         bottom: 0,
       }}
     >
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+      // A FormControl which contains a Select to change the language
+      <FormControl
+        sx={{ justifyContent: "center", m: 5, minWidth: 120 }}
+        size="small"
+        variant="outlined"
+      >
         <Select value={language} onChange={handleLanguage}>
           <MenuItem value="en">EN</MenuItem>
           <MenuItem value="es">ES</MenuItem>
