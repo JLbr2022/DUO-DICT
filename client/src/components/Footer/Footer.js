@@ -32,7 +32,7 @@ export function Footer() {
         bottom: 0,
       }}
     >
-      // A FormControl which contains a Select to change the language
+      {/* A FormControl which contains a Select to change the language */}
       <FormControl
         sx={{ justifyContent: "center", m: 5, minWidth: 120 }}
         size="small"
