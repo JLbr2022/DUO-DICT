@@ -5,7 +5,6 @@ import {
   Save,
   KeyboardArrowDown,
   KeyboardArrowUp,
-  TableRows,
 } from "@mui/icons-material";
 import {
   TableCell,
@@ -69,7 +68,9 @@ export const WordsTable = () => {
     Scroller: forwardRef((props, ref) => (
       <TableContainer component={Paper} {...props} ref={ref} />
     )),
-    Table: (props) => <Table {...props} sx={{ tableLayout: "fixed" }} />,
+    Table: (props) => (
+      <Table {...props} sx={{ tableLayout: "fixed", width: "100%" }} />
+    ),
     TableHead,
     TableRow: ({ item: item, ...props }) => (
       <MyTableRow item={item} props={props} />
@@ -112,6 +113,7 @@ export const WordsTable = () => {
     return <TableRow {...props} />;
   };
 
+  // Function to render the table header
   const headerContent = () => (
     <TableRow>
       <TableCell
@@ -120,24 +122,6 @@ export const WordsTable = () => {
           backgroundColor: "#000",
         }}
       />
-
-      {/* <TableCell
-        sx={{
-          display: { sm: "none", xs: "none", md: "table-cell" },
-          backgroundColor: "#000",
-        }}
-      >
-        {t("app.headerTable.id")}
-      </TableCell>
-
-      <TableCell
-        sx={{
-          display: { sm: "none", xs: "none", md: "table-cell" },
-          backgroundColor: "#000",
-        }}
-      >
-        {t("app.headerTable.type")}
-      </TableCell> */}
 
       <TableCell
         sx={{
@@ -179,6 +163,7 @@ export const WordsTable = () => {
     </TableRow>
   );
 
+  // Function to render the table rows
   const rowContent = (index, item) => {
     const currentOpen = item.id === openId && open > -1;
     const borderBottom = currentOpen
@@ -207,24 +192,6 @@ export const WordsTable = () => {
             {open === index ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
         </TableCell>
-
-        {/* <TableCell
-          sx={{
-            display: { sm: "none", xs: "none", md: "table-cell" },
-            maxWidth: 50,
-          }}
-        >
-          {item.id}
-        </TableCell>
-
-        <TableCell
-          sx={{
-            display: { sm: "none", xs: "none", md: "table-cell" },
-            maxWidth: 50,
-          }}
-        >
-          {item.type}
-        </TableCell> */}
 
         <TableCell
           sx={{ display: { sm: "none", xs: "none", md: "table-cell" } }}
