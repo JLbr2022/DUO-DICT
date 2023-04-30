@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { FormControl, MenuItem, Select } from "@mui/material";
-import { Margin } from "@mui/icons-material";
 
 export function Footer() {
   const { i18n } = useTranslation();
