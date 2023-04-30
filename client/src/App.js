@@ -1,16 +1,16 @@
 import { Routes, Route } from "react-router-dom";
-import { AppContext } from "./components/context/appContext";
-import { useStore } from "./components/context/userStore";
+import { useStore } from "./context/userStore";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/Home/Home";
 import NavBar from "./components/NavBar/NavBar";
-import Sentences from "./components/Sentences/Sentences";
-import ModalAdd from "./components/Crud/ModalAdd/ModalAdd";
-import DisplayAllWords from "./components/DisplayAllWords/DisplayAllWords";
+import { Toast } from "./components/Toast/Toast";
+import { WordsTable } from "./components/WordsTable/WordsTable";
+import { AppContext } from "./context/appContext";
+import { ModalAdd } from "./components/Crud/ModalAdd/ModalAdd";
+import { Footer } from "./components/Footer/Footer";
 
 const darkTheme = createTheme({
   palette: {
@@ -20,7 +20,6 @@ const darkTheme = createTheme({
 
 export default function App() {
   const store = useStore();
-
   return (
     <Box flex justifyContent="center" alignItems="center" width="100%">
       <ThemeProvider theme={darkTheme}>
@@ -30,11 +29,13 @@ export default function App() {
             <NavBar />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/words/w/word/asc" element={<DisplayAllWords />} />
-              <Route path="/words/s/word/asc" element={<Sentences />} />
+              <Route path="/words/w/word/asc" element={<WordsTable />} />
+              <Route path="/words/s/word/asc" element={<WordsTable />} />
             </Routes>
           </Container>
           <ModalAdd />
+          <Toast />
+          <Footer />
         </AppContext.Provider>
       </ThemeProvider>
     </Box>

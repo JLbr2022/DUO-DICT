@@ -1,12 +1,54 @@
 {
   "app": {
-    "title": "DUO_DICT",
+    "title": "Duo Dict",
     "menu": {
       "wordsList": "Words list",
       "sentencesList": "Sentences list"
     },
     "search": {
-      "placeholder": "Search..."
+      "placeholder": "Write something...",
+      "label": "Search for..."
+    },
+    "action": {
+      "delete": {
+        "title": "Deleting ( {{word}} )",
+        "text": "Are you sure?"
+      },
+      "edit": {
+        "title": "Editing {{type}}"
+      },
+      "add": {
+        "title": "Adding {{type}}"
+      },
+      "cancel": "cancel",
+      "confirm": "confirm",
+      "submit": "submit"
+    },
+    "helpers": {
+      "selectLanguage": "Select language",
+      "edit.word": "Edit {{type}}",
+      "translation": "Enter translation",
+      "comment": "Enter comments"
+    },
+    "labels": {
+      "language": "Language",
+      "translation": "Translation",
+      "comment": "Comment"
+    },
+    "messages": {
+      "saved": "{{type}} saved",
+      "updated": "{{type}} updated",
+      "deleted": "{{type}} deleted"
+    },
+    "headerTable": {
+      "id": "ID",
+      "type": "Type",
+      "language": "LANGUAGE",
+      "word": "WORD",
+      "sentence": "SENTENCE",
+      "translation": "TRANSLATION",
+      "comment": "COMMENT",
+      "controls": "CONTROLS"
     }
   }
 }

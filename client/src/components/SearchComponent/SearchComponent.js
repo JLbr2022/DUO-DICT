@@ -1,27 +1,25 @@
-import * as React from "react";
 import { useContext } from "react";
-import { AppContext } from "../context/appContext";
-import SearchIcon from "@mui/icons-material/Search";
-import { IconButton } from "@mui/material";
-import InputBase from "@mui/material/InputBase";
 import { useTranslation } from "react-i18next";
+import { IconButton, Box, TextField } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { AppContext } from "../../context/appContext";
+import InputBase from "@mui/material/InputBase";
 
 export const SearchComponent = () => {
   const { t } = useTranslation();
-  const { applyFilter } = useContext(AppContext);
+  const { setFilter } = useContext(AppContext);
+  const handleSearch = (a) => setFilter(a.target.value);
 
-  const handleSearch = (a) => applyFilter(a.target.value);
+  const labelTextField = t("app.search.label");
 
   return (
-    <>
-      <InputBase
-        sx={{ ml: 2 }}
+    <Box sx={{ ml: 1, mr: 2 }}>
+      <TextField
+        size="small"
+        label={labelTextField}
         placeholder={t("app.search.placeholder")}
         onChange={handleSearch}
       />
-      <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-        <SearchIcon />
-      </IconButton>
-    </>
+    </Box>
   );
 };

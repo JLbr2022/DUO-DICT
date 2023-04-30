@@ -1,6 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import dictionary from "../src/locals/en.json";
+import dictionary_EN from "../src/locals/en.json";
+import dictionary_ES from "../src/locals/es.json";
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -11,11 +12,16 @@ i18n
     resources: {
       en: {
         translation: {
-          ...dictionary,
+          ...dictionary_EN,
+        },
+      },
+      es: {
+        translation: {
+          ...dictionary_ES,
         },
       },
     },
-    lng: "en", // if you're using a language detector, do not define the lng option
+    lng: localStorage.getItem("lang") || "en", // if you're using a language detector, do not define the lng option
     fallbackLng: "en",
 
     interpolation: {

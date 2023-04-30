@@ -3,7 +3,7 @@
 function Header() {
   return (
     // <div className="Container">
-    <h1>Home</h1>
+    <h1>HEADER</h1>
     // </div>
   );
 }

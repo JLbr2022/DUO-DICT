@@ -1,0 +1,54 @@
+{
+  "app": {
+    "title": "Duo Dict",
+    "menu": {
+      "wordsList": "Palabras",
+      "sentencesList": "Oraciones"
+    },
+    "search": {
+      "placeholder": "Escriba algo...",
+      "label": "Buscar por..."
+    },
+    "action": {
+      "delete": {
+        "title": "Eliminando ( {{word}} )",
+        "text": "Estas seguro?"
+      },
+      "edit": {
+        "title": "Editando {{type}}"
+      },
+      "add": {
+        "title": "Agregando {{type}}"
+      },
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "submit": "Enviar"
+    },
+    "helpers": {
+      "selectLanguage": "Seleccione un idioma",
+      "edit.word": "Edit {{type}}",
+      "translation": "Escriba la traducción",
+      "comment": "Escriba un comentario"
+    },
+    "labels": {
+      "language": "Lenguaje",
+      "translation": "Traducción",
+      "comment": "Comentario"
+    },
+    "messages": {
+      "saved": "{{type}} guardado",
+      "updated": "{{type}} actualizado",
+      "deleted": "{{type}} eliminado"
+    },
+    "headerTable": {
+      "id": "ID",
+      "type": "Tipo",
+      "language": "LENGUAJE",
+      "word": "PALABRA",
+      "sentence": "ORACION",
+      "translation": "TRADUCCION",
+      "comment": "COMENTARIO",
+      "controls": "CONTROLES"
+    }
+  }
+}
